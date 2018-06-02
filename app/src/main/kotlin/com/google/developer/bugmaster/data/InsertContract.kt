@@ -5,7 +5,7 @@ import android.provider.BaseColumns
 class InsertContract {
     companion object Insect {
         const val TABLE_NAME = "insects"
-        const val COLUMN_NAME = "name"
+        const val COLUMN_NAME = "friendlyName"
         const val COLUMN_SCIENTIFIC_NAME = "scientificName"
         const val COLUMN_CLASSIFICATION = "classification"
         const val COLUMN_IMAGE_ASSERT = "imageAssert"

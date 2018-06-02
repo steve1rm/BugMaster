@@ -8,6 +8,8 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.developer.bugmaster.R;
+import com.google.developer.bugmaster.data.entities.InsertEntity;
+import com.google.gson.Gson;
 
 import org.json.JSONException;
 
@@ -89,6 +91,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         //Parse resource into key/values
         final String rawJson = builder.toString();
         //TODO: Parse JSON data and insert into the provided database instance
-
+        final Gson gson = new Gson();
+        gson.fromJson(rawJson, InsertEntity.class);
     }
 }

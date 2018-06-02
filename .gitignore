@@ -4,3 +4,12 @@
 .DS_Store
 /build
 /captures
+.idea/libraries/Gradle__com_google_code_gson_gson_2_8_5_jar.xml
+.idea/libraries/Gradle__org_jetbrains_annotations_13_0_jar.xml
+.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_1_2_41_jar.xml
+.idea/libraries/Gradle__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_2_41_jar.xml
+.idea/vcs.xml
+.idea/caches/build_file_checksums.ser
+.idea/workspace.xml
+.idea/*
+
