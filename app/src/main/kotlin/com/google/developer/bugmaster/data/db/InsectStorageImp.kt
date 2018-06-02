@@ -12,8 +12,7 @@ class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectEnti
 
         insectEntity.insectTypesEntity.forEach {
             val insectDataModel = insectInteractor.map(it)
-            val rowId = db.insert(InsectContract.TABLE_NAME, null, insectDataModel.toContentValues())
-            println(insectDataModel.friendlyName)
+            db.insert(InsectContract.TABLE_NAME, null, insectDataModel.toContentValues())
         }
     }
 

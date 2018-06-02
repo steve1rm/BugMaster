@@ -10,12 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.google.developer.bugmaster.data.BugsDbHelper;
 import com.google.developer.bugmaster.data.DatabaseManager;
-
-import org.json.JSONException;
-
-import java.io.IOException;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
@@ -26,6 +21,7 @@ public class MainActivity extends AppCompatActivity implements
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         databaseManager = DatabaseManager.getInstance(this);
+        databaseManager.queryAllInsects("friendlyName");
 
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,8 +42,6 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_sort:
                 //TODO: Implement the sort action
-                final Cursor cursor = databaseManager.queryAllInsects("friendlyName");
-                cursor.close();
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
@@ -62,5 +56,13 @@ public class MainActivity extends AppCompatActivity implements
     @Override
     public void onClick(View v) {
         //TODO: Launch the quiz activity
+    }
+
+    public void loadAllInsects(final Cursor cursor) {
+        cursor.moveToFirst();
+    }
+
+    public void loadSingleInsect(final Cursor cursor) {
+        cursor.moveToFirst();
     }
 }

@@ -2,22 +2,16 @@ package com.google.developer.bugmaster.data;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.provider.BaseColumns;
 import android.util.Log;
 
 import com.google.developer.bugmaster.R;
 import com.google.developer.bugmaster.data.db.InsectContract;
 import com.google.developer.bugmaster.data.db.InsectStorageImp;
-import com.google.developer.bugmaster.data.models.InsectDataModel;
-import com.google.developer.bugmaster.domain.InsectInteractor;
-import com.google.developer.bugmaster.domain.InsectInteractorImp;
 import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
 import com.google.developer.bugmaster.entities.InsectEntity;
-import com.google.developer.bugmaster.entities.InsectTypesEntity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -28,22 +22,11 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import io.reactivex.Completable;
-import io.reactivex.CompletableObserver;
-import io.reactivex.Observable;
-import io.reactivex.Scheduler;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.internal.operators.completable.CompletableError;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.google.developer.bugmaster.data.db.InsectContract.COLUMN_CLASSIFICATION;
-import static com.google.developer.bugmaster.data.db.InsectContract.COLUMN_DANGER_LEVEL;
-import static com.google.developer.bugmaster.data.db.InsectContract.COLUMN_FRIENDLY_NAME;
-import static com.google.developer.bugmaster.data.db.InsectContract.COLUMN_IMAGE_ASSERT;
-import static com.google.developer.bugmaster.data.db.InsectContract.COLUMN_SCIENTIFIC_NAME;
 import static com.google.developer.bugmaster.data.db.InsectContract.CREATE_STATEMENT;
-import static com.google.developer.bugmaster.data.db.InsectContract.TABLE_NAME;
 
 /**
  * Database helper class to facilitate creating and updating
