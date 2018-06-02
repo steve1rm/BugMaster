@@ -25,10 +25,6 @@ public class BugsDbHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "insects.db";
     private static final int DATABASE_VERSION = 1;
-    private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_SCIENTIFIC_NAME = "scientificName";
-    private static final String COLUMN_IMAGE_ASSET = "imageAsset";
-    private static final String COLUMN_DANGER_LEVEL = "dangerLevel";
 
     //Used to read data from res/ and assets/
     private Resources mResources;
@@ -42,9 +38,9 @@ public class BugsDbHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         //TODO: Create and fill the database
-        db.beginTransaction();
         try {
-
+            db.beginTransaction();
+            db.execSQL(InsertContract.CREATE_STATEMENT);
         }
         catch(SQLException ex) {
             Log.e(TAG, ex.getMessage());
@@ -57,6 +53,19 @@ public class BugsDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         //TODO: Handle database version upgrades
+        if(oldVersion < DATABASE_VERSION) {
+            try {
+                db.beginTransaction();
+                db.execSQL(InsertContract.DROP_STATMENT);
+                db.execSQL(InsertContract.CREATE_STATEMENT);
+            }
+            catch(SQLException ex) {
+                Log.e(TAG, ex.getMessage());
+            }
+            finally {
+                db.endTransaction();
+            }
+        }
     }
 
     /**
@@ -80,5 +89,6 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         //Parse resource into key/values
         final String rawJson = builder.toString();
         //TODO: Parse JSON data and insert into the provided database instance
+
     }
 }
