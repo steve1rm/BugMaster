@@ -53,7 +53,8 @@ public class DatabaseManager {
                     null,
                     null);
 
-            mBugsDbHelper.close();
+      //      mBugsDbHelper.close();
+            cursor.moveToFirst();
             cursor.close();
 
             return cursor;
@@ -96,11 +97,13 @@ public class DatabaseManager {
      * @return {@link Cursor} containing the insect result.
      */
     public Cursor queryInsectsById(int id) {
+        return null;
+
         //TODO: Implement the query
-        final InsectStorageImp insectStorageImp = new InsectStorageImp(mBugsDbHelper.getReadableDatabase());
+  /*      final InsectStorageImp insectStorageImp = new InsectStorageImp(mBugsDbHelper.getReadableDatabase());
 
         return insectStorageImp.queryOnId(id);
-
+*/
 /*
         final InsectStorageInteractorImp insectStorageInteractorImp
                 = new InsectStorageInteractorImp(new InsectStorageImp(mBugsDbHelper.getReadableDatabase()));

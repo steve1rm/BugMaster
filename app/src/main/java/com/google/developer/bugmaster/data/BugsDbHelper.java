@@ -63,9 +63,6 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
         mResources = context.getResources();
-        final InsectStorageImp insectStorageImp = new InsectStorageImp(this.getReadableDatabase());
-        final InsectStorageInteractorImp insectStorageInteractorImp = new InsectStorageInteractorImp(insectStorageImp);
-        insectStorageInteractorImp.clearInsectsTable();
     }
 
     @Override
@@ -77,9 +74,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         }
         catch(SQLException ex) {
             Log.e(TAG, ex.getMessage());
-        } catch (JSONException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (JSONException | IOException e) {
             e.printStackTrace();
         }
     }
@@ -124,31 +119,12 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         final InsectStorageImp insectStorageImp = new InsectStorageImp(db);
         final InsectStorageInteractorImp insectStorageInteractorImp = new InsectStorageInteractorImp(insectStorageImp);
 
-        insectStorageInteractorImp.saveInsectToDatabase(insertEntity);
-
-        query(db);
-/*
         compositeDisposable.add(insectStorageInteractorImp.saveInsectToDatabase(insertEntity)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .onErrorResumeNext(Completable::error)
-                .subscribe(() -> {
-                    Log.d(TAG, "inserted insect");
-                    db.close();
-                }, error -> Log.e(TAG, "OnError Insects: " + error.getMessage())));
-*/
-    }
-
-    private void query(final SQLiteDatabase db) {
-        final Cursor cursor = db.query(
-                InsectContract.TABLE_NAME,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null);
-
-        cursor.close();
+                .subscribe(
+                        db::close,
+                        error -> Log.e(TAG, "OnError Insects: " + error.getMessage())));
     }
 }
