@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.developer.bugmaster.R;
-import com.google.developer.bugmaster.data.entities.InsertEntity;
+import com.google.developer.bugmaster.entities.InsertEntity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
