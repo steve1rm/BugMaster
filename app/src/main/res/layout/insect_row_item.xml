@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingStart="8dp"
+    android:paddingBottom="8dp"
+    android:paddingTop="8dp"
+    android:paddingEnd="8dp"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ImageView
+        android:id="@+id/ivDangerLevel"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        tools:src="@drawable/bug_danger"/>
+
+    <TextView
+        android:id="@+id/tvFriendlyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/ivDangerLevel"
+        tools:text="Lady Bug"/>
+
+    <TextView
+        android:id="@+id/tvScientificName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toEndOf="@id/ivDangerLevel"
+        app:layout_constraintTop_toBottomOf="@id/tvFriendlyName"
+        tools:text="Dorylus gribodoi"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
