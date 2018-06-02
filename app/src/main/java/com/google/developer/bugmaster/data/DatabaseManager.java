@@ -3,6 +3,14 @@ package com.google.developer.bugmaster.data;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.google.developer.bugmaster.data.db.InsectStorageImp;
+import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
+
+import io.reactivex.SingleObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 /**
  * Singleton that controls access to the SQLiteDatabase instance
  * for this application.
@@ -32,7 +40,32 @@ public class DatabaseManager {
      */
     public Cursor queryAllInsects(String sortOrder) {
         //TODO: Implement the query
-        return null;
+        final InsectStorageImp insectStorageImp = new InsectStorageImp(mBugsDbHelper.getReadableDatabase());
+
+        return insectStorageImp.queryAndSort(sortOrder);
+
+/*
+        final InsectStorageInteractorImp insectStorageInteractorImp
+                = new InsectStorageInteractorImp(new InsectStorageImp(mBugsDbHelper.getReadableDatabase()));
+
+        insectStorageInteractorImp.getAllSortedInsects(sortOrder)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Cursor>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onSuccess(Cursor cursor) {
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+*/
     }
 
     /**
@@ -43,6 +76,32 @@ public class DatabaseManager {
      */
     public Cursor queryInsectsById(int id) {
         //TODO: Implement the query
-        return null;
+        final InsectStorageImp insectStorageImp = new InsectStorageImp(mBugsDbHelper.getReadableDatabase());
+
+        return insectStorageImp.queryOnId(id);
+
+/*
+        final InsectStorageInteractorImp insectStorageInteractorImp
+                = new InsectStorageInteractorImp(new InsectStorageImp(mBugsDbHelper.getReadableDatabase()));
+
+        insectStorageInteractorImp.getInsectOnID(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<Cursor>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                    }
+
+                    @Override
+                    public void onSuccess(Cursor cursor) {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                });
+*/
     }
 }

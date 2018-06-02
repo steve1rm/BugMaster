@@ -1,8 +1,10 @@
 package com.google.developer.bugmaster.domain
 
+import android.database.Cursor
 import com.google.developer.bugmaster.data.db.InsectStorageImp
 import com.google.developer.bugmaster.data.models.InsectDataModel
 import io.reactivex.Completable
+import io.reactivex.Single
 
 class InsectStorageInteractorImp(private val insectStorageImp: InsectStorageImp)
     : InsectStorageInteractor<InsectDataModel> {
@@ -10,6 +12,18 @@ class InsectStorageInteractorImp(private val insectStorageImp: InsectStorageImp)
     override fun saveInsectToDatabase(insect: InsectDataModel): Completable {
         return Completable.fromCallable {
             insectStorageImp.insertInsect(insect)
+        }
+    }
+
+    override fun getAllSortedInsects(sortOrder: String): Single<Cursor> {
+        return Single.fromCallable {
+            insectStorageImp.queryAndSort(sortOrder)
+        }
+    }
+
+    override fun getInsectOnID(id: Int): Single<Cursor> {
+        return Single.fromCallable {
+            insectStorageImp.queryOnId(id)
         }
     }
 }
