@@ -8,7 +8,10 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 import com.google.developer.bugmaster.R;
-import com.google.developer.bugmaster.entities.InsertEntity;
+import com.google.developer.bugmaster.data.db.InsectContract;
+import com.google.developer.bugmaster.domain.InsectInteractor;
+import com.google.developer.bugmaster.entities.InsectEntity;
+import com.google.developer.bugmaster.entities.InsectTypesEntity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;
@@ -42,7 +45,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         //TODO: Create and fill the database
         try {
             db.beginTransaction();
-            db.execSQL(InsertContract.CREATE_STATEMENT);
+            db.execSQL(InsectContract.CREATE_STATEMENT);
         }
         catch(SQLException ex) {
             Log.e(TAG, ex.getMessage());
@@ -58,8 +61,8 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         if(oldVersion < DATABASE_VERSION) {
             try {
                 db.beginTransaction();
-                db.execSQL(InsertContract.DROP_STATMENT);
-                db.execSQL(InsertContract.CREATE_STATEMENT);
+                db.execSQL(InsectContract.DROP_STATMENT);
+                db.execSQL(InsectContract.CREATE_STATEMENT);
             }
             catch(SQLException ex) {
                 Log.e(TAG, ex.getMessage());
@@ -78,7 +81,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
      * @throws IOException
      * @throws JSONException
      */
-    private void readInsectsFromResources(SQLiteDatabase db) throws IOException, JSONException {
+    public void readInsectsFromResources(SQLiteDatabase db) throws IOException, JSONException {
         StringBuilder builder = new StringBuilder();
         InputStream in = mResources.openRawResource(R.raw.insects);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -92,6 +95,9 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         final String rawJson = builder.toString();
         //TODO: Parse JSON data and insert into the provided database instance
         final Gson gson = new Gson();
-        gson.fromJson(rawJson, InsertEntity.class);
+        final InsectEntity insertEntity = gson.fromJson(rawJson, InsectEntity.class);
+
+        final InsectInteractor insectInteractor = new InsectInteractor();
+        insectInteractor.map(rawJson);
     }
 }

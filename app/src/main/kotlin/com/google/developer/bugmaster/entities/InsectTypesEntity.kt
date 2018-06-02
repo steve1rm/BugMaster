@@ -2,7 +2,7 @@ package com.google.developer.bugmaster.entities
 
 import com.google.gson.annotations.SerializedName
 
-data class InsertEntity(
+data class InsectTypesEntity(
         @SerializedName("friendlyName") val friendlyName: String,
         @SerializedName("scientificName") val scientificName: String,
         @SerializedName("classification") val classification: String,

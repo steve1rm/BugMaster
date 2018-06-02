@@ -9,6 +9,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.google.developer.bugmaster.data.BugsDbHelper;
+
+import org.json.JSONException;
+
+import java.io.IOException;
+
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
 
@@ -21,6 +27,15 @@ public class MainActivity extends AppCompatActivity implements
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(this);
+
+        BugsDbHelper bugsDbHelper = new BugsDbHelper(this);
+        try {
+            bugsDbHelper.readInsectsFromResources(bugsDbHelper.getReadableDatabase());
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
