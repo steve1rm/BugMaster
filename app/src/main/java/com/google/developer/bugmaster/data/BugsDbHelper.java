@@ -11,7 +11,7 @@ import com.google.developer.bugmaster.R;
 import com.google.developer.bugmaster.data.db.InsectContract;
 import com.google.developer.bugmaster.data.db.InsectStorageImp;
 import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
-import com.google.developer.bugmaster.entities.InsectEntity;
+import com.google.developer.bugmaster.data.entities.InsectEntity;
 import com.google.gson.Gson;
 
 import org.json.JSONException;

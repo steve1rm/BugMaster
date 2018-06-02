@@ -2,7 +2,7 @@ package com.google.developer.bugmaster.domain
 
 import android.database.Cursor
 import com.google.developer.bugmaster.data.db.InsectStorageImp
-import com.google.developer.bugmaster.entities.InsectEntity
+import com.google.developer.bugmaster.data.entities.InsectEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 

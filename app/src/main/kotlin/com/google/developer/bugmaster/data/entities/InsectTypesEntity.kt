@@ -1,4 +1,4 @@
-package com.google.developer.bugmaster.entities
+package com.google.developer.bugmaster.data.entities
 
 import com.google.gson.annotations.SerializedName
 

@@ -3,7 +3,7 @@ package com.google.developer.bugmaster.data.db
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.google.developer.bugmaster.domain.InsectInteractorImp
-import com.google.developer.bugmaster.entities.InsectEntity
+import com.google.developer.bugmaster.data.entities.InsectEntity
 
 
 class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectEntity> {
