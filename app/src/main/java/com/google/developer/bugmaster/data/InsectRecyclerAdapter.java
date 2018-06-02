@@ -4,6 +4,10 @@ import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.google.developer.bugmaster.R;
 
 /**
  * RecyclerView adapter extended with project-specific required methods.
@@ -17,10 +21,15 @@ public class InsectRecyclerAdapter extends
 
         public InsectHolder(View itemView) {
             super(itemView);
+
+            ivDangerLevel = itemView.findViewById(R.id.ivDangerLevel);
+            tvFriendlyName = itemView.findViewById(R.id.tvFriendlyName);
+            tvScientificName = itemView.findViewById(R.id.tvScientificName);
         }
 
         @Override
         public void onClick(View v) {
+
         }
     }
 
