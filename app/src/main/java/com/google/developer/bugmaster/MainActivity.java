@@ -20,9 +20,12 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
 
+    private DatabaseManager databaseManager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        databaseManager = DatabaseManager.getInstance(this);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -42,7 +45,8 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_sort:
                 //TODO: Implement the sort action
-                final Cursor cursor = DatabaseManager.getInstance(this).queryAllInsects("friendlyName");
+                final Cursor cursor = databaseManager.queryAllInsects("friendlyName");
+                cursor.close();
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);

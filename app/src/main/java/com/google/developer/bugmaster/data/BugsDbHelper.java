@@ -2,6 +2,7 @@ package com.google.developer.bugmaster.data;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -52,7 +53,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
     private static final String TAG = BugsDbHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "bug_master.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     //Used to read data from res/ and assets/
@@ -62,6 +63,9 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
 
         mResources = context.getResources();
+        final InsectStorageImp insectStorageImp = new InsectStorageImp(this.getReadableDatabase());
+        final InsectStorageInteractorImp insectStorageInteractorImp = new InsectStorageInteractorImp(insectStorageImp);
+        insectStorageInteractorImp.clearInsectsTable();
     }
 
     @Override
@@ -69,9 +73,14 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         //TODO: Create and fill the database
         try {
             db.execSQL(CREATE_STATEMENT);
+            readInsectsFromResources(db);
         }
         catch(SQLException ex) {
             Log.e(TAG, ex.getMessage());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -97,7 +106,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
      * @throws IOException
      * @throws JSONException
      */
-    public void readInsectsFromResources(SQLiteDatabase db) throws IOException, JSONException {
+    private void readInsectsFromResources(SQLiteDatabase db) throws IOException, JSONException {
         StringBuilder builder = new StringBuilder();
         InputStream in = mResources.openRawResource(R.raw.insects);
         BufferedReader reader = new BufferedReader(new InputStreamReader(in));
@@ -112,21 +121,34 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         //TODO: Parse JSON data and insert into the provided database instance
         final Gson gson = new Gson();
         final InsectEntity insertEntity = gson.fromJson(rawJson, InsectEntity.class);
-
-        final InsectInteractorImp insectInteractor = new InsectInteractorImp();
         final InsectStorageImp insectStorageImp = new InsectStorageImp(db);
-        for(InsectTypesEntity insect : insertEntity.getInsectTypesEntity()) {
-            final InsectDataModel insectDataModel = insectInteractor.map(insect);
+        final InsectStorageInteractorImp insectStorageInteractorImp = new InsectStorageInteractorImp(insectStorageImp);
 
-            final InsectStorageInteractorImp insectStorageInteractorImp = new InsectStorageInteractorImp(insectStorageImp);
+        insectStorageInteractorImp.saveInsectToDatabase(insertEntity);
 
-            compositeDisposable.add(insectStorageInteractorImp.saveInsectToDatabase(insectDataModel)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .onErrorResumeNext(Completable::error)
-                    .subscribe(() -> Log.d(TAG, "inserted insect"), error -> Log.e(TAG, "Insects: " + error.getMessage())));
-        }
+        query(db);
+/*
+        compositeDisposable.add(insectStorageInteractorImp.saveInsectToDatabase(insertEntity)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .onErrorResumeNext(Completable::error)
+                .subscribe(() -> {
+                    Log.d(TAG, "inserted insect");
+                    db.close();
+                }, error -> Log.e(TAG, "OnError Insects: " + error.getMessage())));
+*/
+    }
 
-        compositeDisposable.dispose();
+    private void query(final SQLiteDatabase db) {
+        final Cursor cursor = db.query(
+                InsectContract.TABLE_NAME,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null);
+
+        cursor.close();
     }
 }

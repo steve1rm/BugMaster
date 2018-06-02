@@ -3,7 +3,7 @@ package com.google.developer.bugmaster.data.models
 import android.content.ContentValues
 import com.google.developer.bugmaster.data.db.InsectContract
 
-data class InsectDataModel(private val friendlyName: String,
+data class InsectDataModel(val friendlyName: String,
                            private val scientificName: String,
                            private val classification: String,
                            private val imageAsset: String,

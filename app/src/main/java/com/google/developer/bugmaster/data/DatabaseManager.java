@@ -2,7 +2,10 @@ package com.google.developer.bugmaster.data;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.database.SQLException;
+import android.util.Log;
 
+import com.google.developer.bugmaster.data.db.InsectContract;
 import com.google.developer.bugmaster.data.db.InsectStorageImp;
 import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
 
@@ -40,9 +43,26 @@ public class DatabaseManager {
      */
     public Cursor queryAllInsects(String sortOrder) {
         //TODO: Implement the query
+
+            final Cursor cursor = mBugsDbHelper.getReadableDatabase().query(
+                    InsectContract.TABLE_NAME,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null);
+
+            mBugsDbHelper.close();
+            cursor.close();
+
+            return cursor;
+
+/*
         final InsectStorageImp insectStorageImp = new InsectStorageImp(mBugsDbHelper.getReadableDatabase());
 
         return insectStorageImp.queryAndSort(sortOrder);
+*/
 
 /*
 

@@ -2,16 +2,16 @@ package com.google.developer.bugmaster.domain
 
 import android.database.Cursor
 import com.google.developer.bugmaster.data.db.InsectStorageImp
-import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.entities.InsectEntity
 import io.reactivex.Completable
 import io.reactivex.Single
 
 class InsectStorageInteractorImp(private val insectStorageImp: InsectStorageImp)
-    : InsectStorageInteractor<InsectDataModel> {
+    : InsectStorageInteractor<InsectEntity> {
 
-    override fun saveInsectToDatabase(insect: InsectDataModel): Completable {
+    override fun saveInsectToDatabase(insectEntity: InsectEntity): Completable {
         return Completable.fromCallable {
-            insectStorageImp.insertInsect(insect)
+            insectStorageImp.insertInsect(insectEntity)
         }
     }
 

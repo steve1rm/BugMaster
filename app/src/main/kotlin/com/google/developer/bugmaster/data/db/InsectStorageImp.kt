@@ -2,14 +2,22 @@ package com.google.developer.bugmaster.data.db
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.domain.InsectInteractorImp
+import com.google.developer.bugmaster.entities.InsectEntity
 
-class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectDataModel> {
-    override fun insertInsect(insect: InsectDataModel) {
-        db.insertOrThrow(InsectContract.TABLE_NAME, null, insect.toContentValues())
+
+class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectEntity> {
+    override fun insertInsect(insectEntity: InsectEntity) {
+        val insectInteractor = InsectInteractorImp()
+
+        insectEntity.insectTypesEntity.forEach {
+            val insectDataModel = insectInteractor.map(it)
+            db.insert(InsectContract.TABLE_NAME, null, insectDataModel.toContentValues())
+            println(insectDataModel.friendlyName)
+        }
     }
 
-    override fun queryAndSort(sortOrder: String): Cursor {
+    override fun queryAndSort(sortOrder: String): Cursor? {
         return db.query(
                 InsectContract.TABLE_NAME,
                 null,
