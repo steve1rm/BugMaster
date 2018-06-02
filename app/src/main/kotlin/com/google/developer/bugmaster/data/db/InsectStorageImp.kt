@@ -17,7 +17,7 @@ class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectData
                 null,
                 null,
                 null,
-                sortOrder)
+                null)
     }
 
     override fun queryOnId(id: Int): Cursor {
@@ -30,5 +30,9 @@ class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectData
                 null,
                 null,
                 null)
+    }
+
+    override fun deleteTable() {
+        db.delete(InsectContract.TABLE_NAME, null, null)
     }
 }

@@ -10,5 +10,7 @@ interface InsectStorageInteractor<InsectDataModel> {
     fun getAllSortedInsects(sortOrder: String): Single<Cursor>
 
     fun getInsectOnID(id: Int): Single<Cursor>
+
+    fun clearInsectsTable(): Completable
 }
 

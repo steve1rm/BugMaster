@@ -45,6 +45,7 @@ public class DatabaseManager {
         return insectStorageImp.queryAndSort(sortOrder);
 
 /*
+
         final InsectStorageInteractorImp insectStorageInteractorImp
                 = new InsectStorageInteractorImp(new InsectStorageImp(mBugsDbHelper.getReadableDatabase()));
 

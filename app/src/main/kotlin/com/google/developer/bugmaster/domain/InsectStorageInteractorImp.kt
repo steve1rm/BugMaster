@@ -26,4 +26,10 @@ class InsectStorageInteractorImp(private val insectStorageImp: InsectStorageImp)
             insectStorageImp.queryOnId(id)
         }
     }
+
+    override fun clearInsectsTable(): Completable {
+        return Completable.fromCallable {
+            insectStorageImp.deleteTable()
+        }
+    }
 }

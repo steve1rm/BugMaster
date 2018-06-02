@@ -6,4 +6,5 @@ interface InsectStorage<InsectDataModel> {
     fun insertInsect(insect: InsectDataModel)
     fun queryAndSort(sortOrder: String): Cursor
     fun queryOnId(id: Int): Cursor
+    fun deleteTable()
 }

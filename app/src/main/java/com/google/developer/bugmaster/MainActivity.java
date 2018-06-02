@@ -1,6 +1,7 @@
 package com.google.developer.bugmaster;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +11,7 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.developer.bugmaster.data.BugsDbHelper;
+import com.google.developer.bugmaster.data.DatabaseManager;
 
 import org.json.JSONException;
 
@@ -40,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements
         switch (item.getItemId()) {
             case R.id.action_sort:
                 //TODO: Implement the sort action
+                final Cursor cursor = DatabaseManager.getInstance(this).queryAllInsects("friendlyName");
                 return true;
             case R.id.action_settings:
                 Intent intent = new Intent(this, SettingsActivity.class);
