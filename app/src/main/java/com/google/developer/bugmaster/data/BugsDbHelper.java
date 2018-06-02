@@ -9,7 +9,9 @@ import android.util.Log;
 
 import com.google.developer.bugmaster.R;
 import com.google.developer.bugmaster.data.db.InsectContract;
+import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractor;
+import com.google.developer.bugmaster.domain.InsectInteractorImp;
 import com.google.developer.bugmaster.entities.InsectEntity;
 import com.google.developer.bugmaster.entities.InsectTypesEntity;
 import com.google.gson.Gson;
@@ -97,7 +99,11 @@ public class BugsDbHelper extends SQLiteOpenHelper {
         final Gson gson = new Gson();
         final InsectEntity insertEntity = gson.fromJson(rawJson, InsectEntity.class);
 
-        final InsectInteractor insectInteractor = new InsectInteractor();
-        insectInteractor.map(rawJson);
+        final InsectInteractorImp insectInteractor = new InsectInteractorImp();
+        for(InsectTypesEntity insect : insertEntity.getInsectTypesEntity()) {
+            final InsectDataModel insectDataModel = insectInteractor.map(insect);
+
+        }
+
     }
 }

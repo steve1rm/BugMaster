@@ -1,12 +1,7 @@
 package com.google.developer.bugmaster.domain
 
-import com.google.developer.bugmaster.entities.InsectTypesEntity
-import com.google.gson.Gson
+import com.google.developer.bugmaster.data.models.InsectDataModel
 
-class InsectInteractor {
-    fun map(jsonRaw: String) {
-        val gson = Gson()
-        val insectEntity = gson.fromJson<InsectTypesEntity>(jsonRaw, InsectTypesEntity::class.java)
-
-    }
+interface InsectInteractor<InsectTypesEntity> {
+    fun map(insectTypesEntity: InsectTypesEntity): InsectDataModel
 }
