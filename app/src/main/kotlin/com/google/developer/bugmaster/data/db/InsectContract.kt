@@ -1,7 +1,5 @@
 package com.google.developer.bugmaster.data.db
 
-import android.provider.BaseColumns
-
 class InsectContract {
     companion object Insect {
         const val TABLE_NAME = "insects"
@@ -13,13 +11,12 @@ class InsectContract {
 
         const val CREATE_STATEMENT = "CREATE TABLE $TABLE_NAME" +
                 " (" +
-                "${BaseColumns._ID} INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                "$COLUMN_FRIENDLY_NAME TEXT NOT NULL, " +
-                "$COLUMN_SCIENTIFIC_NAME TEXT NOT NULL, " +
-                "$COLUMN_CLASSIFICATION TEXT NOT NULL, " +
-                "$COLUMN_IMAGE_ASSERT TEXT NOT NULL, " +
+                "$COLUMN_FRIENDLY_NAME TEXT, " +
+                "$COLUMN_SCIENTIFIC_NAME TEXT, " +
+                "$COLUMN_CLASSIFICATION TEXT, " +
+                "$COLUMN_IMAGE_ASSERT TEXT, " +
                 "$COLUMN_DANGER_LEVEL INTEGER" +
-                 " );"
+                 ");"
 
         const val DELETE_STATEMENT = "DELETE FROM $TABLE_NAME"
         const val DROP_STATMENT = "DROP TABLE IF EXISTS $TABLE_NAME"

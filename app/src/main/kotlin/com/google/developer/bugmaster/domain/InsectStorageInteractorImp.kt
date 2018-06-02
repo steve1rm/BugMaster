@@ -1,10 +1,10 @@
 package com.google.developer.bugmaster.domain
 
-import com.google.developer.bugmaster.data.db.InsertStorageImp
+import com.google.developer.bugmaster.data.db.InsectStorageImp
 import com.google.developer.bugmaster.data.models.InsectDataModel
 import io.reactivex.Completable
 
-class InsectStorageInteractorImp(private val insectStorageImp: InsertStorageImp)
+class InsectStorageInteractorImp(private val insectStorageImp: InsectStorageImp)
     : InsectStorageInteractor<InsectDataModel> {
 
     override fun saveInsectToDatabase(insect: InsectDataModel): Completable {
