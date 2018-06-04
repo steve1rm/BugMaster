@@ -11,11 +11,13 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.google.developer.bugmaster.data.DatabaseManager;
+import com.google.developer.bugmaster.presentation.InsectAdapter;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener {
 
     private DatabaseManager databaseManager;
+    private InsectAdapter insectAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

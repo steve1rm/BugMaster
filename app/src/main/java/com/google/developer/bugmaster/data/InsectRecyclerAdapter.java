@@ -21,10 +21,6 @@ public class InsectRecyclerAdapter extends
 
         public InsectHolder(View itemView) {
             super(itemView);
-
-            ivDangerLevel = itemView.findViewById(R.id.ivDangerLevel);
-            tvFriendlyName = itemView.findViewById(R.id.tvFriendlyName);
-            tvScientificName = itemView.findViewById(R.id.tvScientificName);
         }
 
         @Override

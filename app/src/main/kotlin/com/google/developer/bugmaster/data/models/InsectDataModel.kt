@@ -4,10 +4,10 @@ import android.content.ContentValues
 import com.google.developer.bugmaster.data.db.InsectContract
 
 data class InsectDataModel(val friendlyName: String,
-                           private val scientificName: String,
-                           private val classification: String,
-                           private val imageAsset: String,
-                           private val dangerLevel: Int) {
+                           val scientificName: String,
+                           val classification: String,
+                           val imageAsset: String,
+                           val dangerLevel: Int) {
 
     fun toContentValues(): ContentValues {
         return ContentValues().apply {
