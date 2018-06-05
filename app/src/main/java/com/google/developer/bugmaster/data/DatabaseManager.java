@@ -8,6 +8,7 @@ import com.google.developer.bugmaster.MainActivity;
 import com.google.developer.bugmaster.data.db.InsectStorageImp;
 import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
 
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -48,12 +49,29 @@ public class DatabaseManager {
         final InsectStorageInteractorImp insectStorageInteractorImp
                 = new InsectStorageInteractorImp(new InsectStorageImp(mBugsDbHelper.getReadableDatabase()));
 
-        final Disposable disposable = insectStorageInteractorImp.getAllSortedInsects(sortOrder)
+        insectStorageInteractorImp.getAllSortedInsects(sortOrder)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        cursor -> mainActivity.loadAllInsects(cursor),
-                        throwable -> Log.e(DatabaseManager.class.getName(), throwable.getMessage()));
+                .subscribe(new SingleObserver<Cursor>() {
+                    Disposable disposable;
+
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposable = d;
+                    }
+
+                    @Override
+                    public void onSuccess(Cursor cursor) {
+                        mainActivity.loadAllInsects(cursor);
+                        disposable.dispose();
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(DatabaseManager.class.getName(), e.getMessage());
+                        disposable.dispose();
+                    }
+                });
     }
 
     /**
