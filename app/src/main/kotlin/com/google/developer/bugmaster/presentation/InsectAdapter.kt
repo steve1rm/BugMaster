@@ -6,12 +6,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.google.common.collect.ImmutableList
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import java.util.Collections.addAll
 import kotlin.properties.Delegates
 
-class InsectAdapter: RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
-    private val insectList: MutableList<InsectDataModel> by Delegates.notNull()
+class InsectAdapter(private var insectList: MutableList<InsectDataModel>): RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
         val view = LayoutInflater.from(parent.context)
@@ -27,6 +28,17 @@ class InsectAdapter: RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun getItemCount(): Int {
         return insectList.size
+    }
+
+    fun loadInsects(insectList: MutableList<InsectDataModel>) {
+        println(insectList.javaClass)
+        println(this.insectList.javaClass)
+
+        insectList.forEach {
+            this.insectList.add(it)
+        }
+
+        notifyDataSetChanged()
     }
 
     class CustomInsectHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {

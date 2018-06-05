@@ -1,7 +1,9 @@
 package com.google.developer.bugmaster.domain
 
-import com.google.developer.bugmaster.data.models.InsectDataModel
+import android.database.Cursor
+import com.google.developer.bugmaster.data.db.InsectContract
 import com.google.developer.bugmaster.data.entities.InsectTypesEntity
+import com.google.developer.bugmaster.data.models.InsectDataModel
 
 class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity> {
     override fun map(insectTypesEntity: InsectTypesEntity): InsectDataModel {
@@ -12,5 +14,23 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity> {
                 insectTypesEntity.classification,
                 insectTypesEntity.imageAsset,
                 insectTypesEntity.dangerLevel)
+    }
+
+    override fun map(cursor: Cursor): MutableList<InsectDataModel> {
+        val insectDataModelList: MutableList<InsectDataModel> = mutableListOf()
+
+        cursor.moveToFirst()
+        while(cursor.moveToNext()) {
+            InsectDataModel().let {
+                it.friendlyName = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_FRIENDLY_NAME))
+                it.scientificName = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_SCIENTIFIC_NAME))
+                it.dangerLevel = cursor.getInt(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_DANGER_LEVEL))
+
+                insectDataModelList.add(it)
+            }
+        }
+
+        cursor.close()
+        return insectDataModelList
     }
 }

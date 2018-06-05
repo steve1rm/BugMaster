@@ -3,11 +3,11 @@ package com.google.developer.bugmaster.data.models
 import android.content.ContentValues
 import com.google.developer.bugmaster.data.db.InsectContract
 
-data class InsectDataModel(val friendlyName: String,
-                           val scientificName: String,
-                           val classification: String,
-                           val imageAsset: String,
-                           val dangerLevel: Int) {
+data class InsectDataModel(var friendlyName: String = "",
+                           var scientificName: String = "",
+                           var classification: String = "",
+                           var imageAsset: String = "",
+                           var dangerLevel: Int = 0) {
 
     fun toContentValues(): ContentValues {
         return ContentValues().apply {
