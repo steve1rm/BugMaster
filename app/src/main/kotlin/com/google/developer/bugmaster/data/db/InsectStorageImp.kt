@@ -2,13 +2,13 @@ package com.google.developer.bugmaster.data.db
 
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
-import com.google.developer.bugmaster.domain.InsectInteractorImp
+import com.google.developer.bugmaster.domain.InsectInteractorMapperImp
 import com.google.developer.bugmaster.data.entities.InsectEntity
 
 
 class InsectStorageImp(private val db: SQLiteDatabase): InsectStorage<InsectEntity> {
     override fun insertInsect(insectEntity: InsectEntity) {
-        val insectInteractor = InsectInteractorImp()
+        val insectInteractor = InsectInteractorMapperImp()
 
         insectEntity.insectTypesEntity.forEach {
             val insectDataModel = insectInteractor.map(it)
