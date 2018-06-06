@@ -9,16 +9,20 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
 import com.google.developer.bugmaster.data.DatabaseManager;
+import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
 import com.google.developer.bugmaster.presentation.InsectAdapter;
 
+import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setupAdapter() {
-        insectAdapter = new InsectAdapter(Collections.emptyList());
+        insectAdapter = new InsectAdapter(new ArrayList<>());
         final LayoutManager layoutManager = new LinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false);
         rvInsects.setLayoutManager(layoutManager);
@@ -94,7 +98,10 @@ public class MainActivity extends AppCompatActivity implements
 
     public void loadAllInsects(final Cursor cursor) {
         insectInteractorMapper = new InsectInteractorMapperImp();
-        insectAdapter.loadInsects(insectInteractorMapper.map(cursor));
+        final List<InsectDataModel> insectDataModel = insectInteractorMapper.map(cursor);
+        Log.d(MainActivity.class.getName(), "InsectDataModel.size " + insectDataModel.size());
+        insectAdapter.loadInsects(insectDataModel);
+        rvInsects.setAdapter(insectAdapter);
     }
 
     public void loadSingleInsect(final Cursor cursor) {

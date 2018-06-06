@@ -12,7 +12,8 @@ import com.google.developer.bugmaster.data.models.InsectDataModel
 import java.util.Collections.addAll
 import kotlin.properties.Delegates
 
-class InsectAdapter(private var insectList: MutableList<InsectDataModel>): RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
+class InsectAdapter(private var insectList: MutableList<InsectDataModel>)
+    : RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
         val view = LayoutInflater.from(parent.context)
@@ -34,14 +35,12 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>): Recyc
         println(insectList.javaClass)
         println(this.insectList.javaClass)
 
-        insectList.forEach {
-            this.insectList.add(it)
-        }
+        this.insectList.addAll(insectList)
 
         notifyDataSetChanged()
     }
 
-    class CustomInsectHolder(itemView: View): RecyclerView.ViewHolder(itemView)  {
+    class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivDangerLevel: ImageView = itemView.findViewById(R.id.ivDangerLevel)
         val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
         val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)
