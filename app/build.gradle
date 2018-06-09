@@ -44,6 +44,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.google.guava:guava-collections:r03'
+    kapt 'org.parceler:parceler:1.1.10'
+    implementation 'org.parceler:parceler-api:1.1.10'
 }
 repositories {
     mavenCentral()
