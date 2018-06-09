@@ -2,6 +2,7 @@ package com.google.developer.bugmaster.data;
 
 import android.annotation.SuppressLint;
 import android.database.Cursor;
+import android.nfc.Tag;
 import android.util.Log;
 
 import com.google.developer.bugmaster.MainActivity;
@@ -11,6 +12,7 @@ import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
 import io.reactivex.schedulers.Schedulers;
 
 /**
@@ -52,6 +54,7 @@ public class DatabaseManager {
         insectStorageInteractorImp.getAllSortedInsects(sortOrder)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> Log.d(DatabaseManager.class.getName(), "doFinally"))
                 .subscribe(new SingleObserver<Cursor>() {
                     Disposable disposable;
 
@@ -64,6 +67,7 @@ public class DatabaseManager {
                     public void onSuccess(Cursor cursor) {
                         mainActivity.loadAllInsects(cursor);
                         disposable.dispose();
+                        Log.d(DatabaseManager.class.getName(), "disposed subscription");
                     }
 
                     @Override

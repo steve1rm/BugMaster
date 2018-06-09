@@ -9,6 +9,7 @@ import android.widget.TextView
 import com.google.common.collect.ImmutableList
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.views.DangerLevelView
 import java.util.Collections.addAll
 import kotlin.properties.Delegates
 
@@ -41,7 +42,7 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>)
     }
 
     class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val ivDangerLevel: ImageView = itemView.findViewById(R.id.ivDangerLevel)
+        val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
         val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
         val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)
     }
