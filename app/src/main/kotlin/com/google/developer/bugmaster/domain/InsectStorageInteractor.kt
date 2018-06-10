@@ -4,8 +4,8 @@ import android.database.Cursor
 import io.reactivex.Completable
 import io.reactivex.Single
 
-interface InsectStorageInteractor<InsectEntity> {
-    fun saveInsectToDatabase(insectEntity: InsectEntity): Completable
+interface InsectStorageInteractor<T> {
+    fun saveInsectToDatabase(insectEntity: T): Completable
 
     fun getAllSortedInsects(sortOrder: String): Single<Cursor>
 
