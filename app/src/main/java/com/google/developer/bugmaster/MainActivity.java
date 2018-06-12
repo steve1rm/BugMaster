@@ -20,7 +20,9 @@ import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
 import com.google.developer.bugmaster.presentation.InsectAdapter;
+import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener;
 
+import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
@@ -31,7 +33,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity implements
-        View.OnClickListener {
+        View.OnClickListener, InsectItemSelectedListener {
     private static final String INSECT_LIST = "insect_data";
     private List<InsectDataModel> insectDataModelList = Collections.emptyList();
 
@@ -132,5 +134,11 @@ public class MainActivity extends AppCompatActivity implements
 
     public void loadSingleInsect(final Cursor cursor) {
         cursor.moveToFirst();
+    }
+
+    @Override
+    public void insectedItemSelected(@NotNull InsectDataModel insectDataModel) {
+        final Intent intent = new Intent(MainActivity.this, InsectDetailsActivity.class);
+        startActivity(intent);
     }
 }

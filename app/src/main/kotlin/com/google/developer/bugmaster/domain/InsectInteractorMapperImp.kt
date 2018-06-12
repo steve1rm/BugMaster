@@ -5,7 +5,7 @@ import com.google.developer.bugmaster.data.db.InsectContract
 import com.google.developer.bugmaster.data.entities.InsectTypesEntity
 import com.google.developer.bugmaster.data.models.InsectDataModel
 
-class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity> {
+class InsectInteractorMapperImp: InsectInteractorMapper {
     override fun map(insectTypesEntity: InsectTypesEntity): InsectDataModel {
 
         return InsectDataModel(

@@ -9,11 +9,14 @@ import android.widget.TextView
 import com.google.common.collect.ImmutableList
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 import com.google.developer.bugmaster.views.DangerLevelView
 import java.util.Collections.addAll
 import kotlin.properties.Delegates
 
-class InsectAdapter(private var insectList: MutableList<InsectDataModel>)
+class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
+                    private val insectItemSelectedListener: InsectItemSelectedListener)
+
     : RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
@@ -26,6 +29,8 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>)
     override fun onBindViewHolder(holder: CustomInsectHolder, position: Int) {
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
+
+
     }
 
     override fun getItemCount(): Int {

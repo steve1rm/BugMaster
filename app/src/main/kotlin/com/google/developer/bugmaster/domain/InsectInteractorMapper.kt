@@ -1,9 +1,10 @@
 package com.google.developer.bugmaster.domain
 
 import android.database.Cursor
+import com.google.developer.bugmaster.data.entities.InsectTypesEntity
 import com.google.developer.bugmaster.data.models.InsectDataModel
 
-interface InsectInteractorMapper<T> {
-    fun map(insectTypesEntity: T): InsectDataModel
+interface InsectInteractorMapper {
+    fun map(insectTypesEntity: InsectTypesEntity): InsectDataModel
     fun map(cursor: Cursor): List<InsectDataModel>
 }

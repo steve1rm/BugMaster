@@ -13,7 +13,16 @@ import com.google.developer.bugmaster.R
  * A simple [Fragment] subclass.
  *
  */
-class InsectDetail : Fragment() {
+class InsectDetails : Fragment() {
+    companion object InsectDetailFragment {
+        val tag: String by lazy {
+            InsectDetails::class.java.simpleName
+        }
+
+        val newInstance by lazy {
+            InsectDetails()
+        }
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

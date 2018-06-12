@@ -7,9 +7,9 @@ import android.os.Parcelable;
 public final class Insect implements Parcelable {
     private static final String TAG = Insect.class.getSimpleName();
 
-    //Common name
+    //Common tag
     public final String name;
-    //Latin scientific name
+    //Latin scientific tag
     public final String scientificName;
     //Classification order
     public final String classification;
