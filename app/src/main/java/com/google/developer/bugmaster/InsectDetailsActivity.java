@@ -12,6 +12,7 @@ public class InsectDetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //TODO: Implement layout and display insect details
+        setContentView(R.layout.activity_insect_detail);
 
         if(savedInstanceState == null) {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

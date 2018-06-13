@@ -5,7 +5,7 @@ import com.google.developer.bugmaster.data.db.InsectContract
 import com.google.developer.bugmaster.data.entities.InsectTypesEntity
 import com.google.developer.bugmaster.data.models.InsectDataModel
 
-class InsectInteractorMapperImp: InsectInteractorMapper {
+class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, InsectDataModel> {
     override fun map(insectTypesEntity: InsectTypesEntity): InsectDataModel {
 
         return InsectDataModel(
@@ -16,7 +16,7 @@ class InsectInteractorMapperImp: InsectInteractorMapper {
                 insectTypesEntity.dangerLevel)
     }
 
-    override fun map(cursor: Cursor): List<InsectDataModel> {
+    override fun map(cursor: Cursor): MutableList<InsectDataModel> {
         val insectDataModelList: MutableList<InsectDataModel> = mutableListOf()
 
         cursor.moveToFirst()
@@ -31,6 +31,6 @@ class InsectInteractorMapperImp: InsectInteractorMapper {
         }
 
         cursor.close()
-        return insectDataModelList.toList()
+        return insectDataModelList
     }
 }

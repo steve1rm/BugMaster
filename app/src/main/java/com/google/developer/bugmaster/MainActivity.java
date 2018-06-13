@@ -85,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void setupAdapter() {
-        insectAdapter = new InsectAdapter(new ArrayList<>());
+        insectAdapter = new InsectAdapter(new ArrayList<>(), MainActivity.this);
         final LayoutManager layoutManager = new LinearLayoutManager(
                 this, LinearLayoutManager.VERTICAL, false);
         rvInsects.setLayoutManager(layoutManager);

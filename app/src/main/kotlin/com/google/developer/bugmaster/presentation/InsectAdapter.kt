@@ -30,7 +30,9 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
 
-
+        holder.tvScientificName.setOnClickListener {
+            insectItemSelectedListener.insectedItemSelected(insectList[position])
+        }
     }
 
     override fun getItemCount(): Int {
