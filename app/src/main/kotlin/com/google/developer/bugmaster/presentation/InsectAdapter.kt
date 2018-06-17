@@ -39,12 +39,17 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
         return insectList.size
     }
 
-    fun loadInsects(insectList: MutableList<InsectDataModel>) {
-        println(insectList.javaClass)
-        println(this.insectList.javaClass)
+    fun loadInsects(newInsectList: MutableList<InsectDataModel>) {
+        println("newInsectList ${newInsectList.javaClass}")
+        println("insectList ${this.insectList.javaClass}")
 
-        this.insectList.addAll(insectList)
+        cleanInsectList()
+        this.insectList.addAll(newInsectList)
+        notifyDataSetChanged()
+    }
 
+    private fun cleanInsectList() {
+        this.insectList.clear()
         notifyDataSetChanged()
     }
 

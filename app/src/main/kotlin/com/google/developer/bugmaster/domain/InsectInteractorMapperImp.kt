@@ -16,7 +16,7 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, Insec
                 insectTypesEntity.dangerLevel)
     }
 
-    override fun map(cursor: Cursor): MutableList<InsectDataModel> {
+    override fun map(cursor: Cursor): List<InsectDataModel> {
         val insectDataModelList: MutableList<InsectDataModel> = mutableListOf()
 
         cursor.moveToFirst()
@@ -31,6 +31,6 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, Insec
         }
 
         cursor.close()
-        return insectDataModelList
+        return insectDataModelList.toList()
     }
 }
