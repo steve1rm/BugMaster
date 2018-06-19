@@ -44,13 +44,13 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
         println("insectList ${this.insectList.javaClass}")
 
         cleanInsectList()
-        this.insectList.addAll(newInsectList)
+       // this.insectList.addAll(newInsectList)
         notifyDataSetChanged()
     }
 
-    private fun cleanInsectList() {
-        this.insectList.clear()
-        notifyDataSetChanged()
+    public fun cleanInsectList() {
+      //  this.insectList.clear()
+    //    notifyDataSetChanged()
     }
 
     class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

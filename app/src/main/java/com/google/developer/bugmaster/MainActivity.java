@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.recycler_view)
     RecyclerView rvInsects;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,12 +58,14 @@ public class MainActivity extends AppCompatActivity implements
         fab.setOnClickListener(this);
 
         Log.d(MainActivity.class.getSimpleName(), "onCreate " + insectDataModelList.size());
-        setupAdapter();
-        if(savedInstanceState == null && insectDataModelList.isEmpty()) {
+       // setupAdapter();
+     //   if (savedInstanceState == null && insectDataModelList.isEmpty()) {
             Log.d(MainActivity.class.getSimpleName(), "onCreate savedInstanceState == null " + insectDataModelList.size());
             databaseManager = DatabaseManager.getInstance(this);
             databaseManager.queryAllInsects("friendlyName");
-        }
+       // }
+      //  setupAdapter();
+
     }
 
     @Override
@@ -77,29 +80,30 @@ public class MainActivity extends AppCompatActivity implements
     protected void onResume() {
         super.onResume();
         Log.d(MainActivity.class.getSimpleName(), "onResume insectDataModelList " + insectDataModelList.size());
-        databaseManager = DatabaseManager.getInstance(this);
+        /*databaseManager = DatabaseManager.getInstance(this);
         databaseManager.queryAllInsects("friendlyName");
+        setupAdapter();*/
     }
 
     @Override
     public void onSaveInstanceState(Bundle outState) {
         Log.d(MainActivity.class.getSimpleName(), "onSavedInstanceState: " + insectDataModelList.size());
-        if(insectDataModelList != null && !insectDataModelList.isEmpty()) {
+       /* if(insectDataModelList != null && !insectDataModelList.isEmpty()) {
             final Parcelable insectList = Parcels.wrap(insectDataModelList);
             outState.putParcelable(INSECT_LIST, insectList);
-
+*/
             super.onSaveInstanceState(outState);
-        }
+        //}
     }
 
     @Override
     public void onRestoreInstanceState(Bundle savedInstanceState) {
         super.onRestoreInstanceState(savedInstanceState);
-        insectDataModelList = Parcels.unwrap(savedInstanceState.getParcelable(INSECT_LIST));
+       /* insectDataModelList = Parcels.unwrap(savedInstanceState.getParcelable(INSECT_LIST));
         Log.d(MainActivity.class.getSimpleName(),"onRestoreInstanceState: " + insectDataModelList.size());
         if(insectDataModelList != null) {
             insectAdapter.loadInsects(insectDataModelList);
-        }
+        }*/
     }
 
     private void setupAdapter() {
@@ -107,6 +111,7 @@ public class MainActivity extends AppCompatActivity implements
                 this, LinearLayoutManager.VERTICAL, false);
         rvInsects.setLayoutManager(layoutManager);
         rvInsects.setAdapter(insectAdapter);
+        insectAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -146,7 +151,18 @@ public class MainActivity extends AppCompatActivity implements
         InsectInteractorMapper insectInteractorMapper = new InsectInteractorMapperImp();
         insectDataModelList = insectInteractorMapper.map(cursor);
         Log.d(MainActivity.class.getName(), "loadAllInsects InsectDataModel.size " + insectDataModelList.size());
-        insectAdapter.loadInsects(insectDataModelList);
+        insectAdapter = null;
+        insectAdapter = new InsectAdapter(insectDataModelList, MainActivity.this);
+       // insectAdapter.loadInsects(insectDataModelList);
+
+       // insectAdapter.notifyDataSetChanged();
+
+       rvInsects.setAdapter(null);
+        setupAdapter();
+//        rvInsects.setAdapter(insectAdapter);
+
+
+
     }
 
     public void loadSingleInsect(final Cursor cursor) {
