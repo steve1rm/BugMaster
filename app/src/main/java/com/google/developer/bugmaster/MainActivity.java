@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.recycler_view)
     RecyclerView rvInsects;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
