@@ -158,4 +158,16 @@ public class MainActivity extends AppCompatActivity implements
         final Intent intent = new Intent(MainActivity.this, InsectDetailsActivity.class);
         startActivity(intent);
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d(MainActivity.class.getName(), "onPause");
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d(MainActivity.class.getName(), "onStop");
+    }
 }
