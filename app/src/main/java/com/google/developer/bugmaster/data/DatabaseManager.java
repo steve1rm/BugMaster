@@ -54,7 +54,6 @@ public class DatabaseManager {
         insectStorageInteractorImp.getAllSortedInsects(sortOrder)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> Log.d(DatabaseManager.class.getName(), "doFinally"))
                 .subscribe(new SingleObserver<Cursor>() {
                     Disposable disposable;
 
@@ -66,7 +65,7 @@ public class DatabaseManager {
                     @Override
                     public void onSuccess(Cursor cursor) {
                         mainActivity.loadAllInsects(cursor);
-             //           disposable.dispose();
+                        disposable.dispose();
                         Log.d(DatabaseManager.class.getName(), "disposed subscription");
                     }
 

@@ -14,7 +14,7 @@ import com.google.developer.bugmaster.views.DangerLevelView
 import java.util.Collections.addAll
 import kotlin.properties.Delegates
 
-class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
+class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
                     private val insectItemSelectedListener: InsectItemSelectedListener)
 
     : RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
@@ -39,11 +39,9 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
         return insectList.size
     }
 
+/*
     fun loadInsects(newInsectList: MutableList<InsectDataModel>) {
-        println("newInsectList ${newInsectList.javaClass}")
-        println("insectList ${this.insectList.javaClass}")
-
-        cleanInsectList()
+ //       cleanInsectList()
         this.insectList.addAll(newInsectList)
         notifyDataSetChanged()
     }
@@ -52,6 +50,7 @@ class InsectAdapter(private var insectList: MutableList<InsectDataModel>,
         this.insectList.clear()
         notifyDataSetChanged()
     }
+*/
 
     class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
