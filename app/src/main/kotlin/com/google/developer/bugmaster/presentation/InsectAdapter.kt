@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.common.collect.ImmutableList
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
@@ -30,7 +31,7 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
 
-        holder.tvScientificName.setOnClickListener {
+        holder.container.setOnClickListener {
             insectItemSelectedListener.insectedItemSelected(insectList[position])
         }
     }
@@ -39,22 +40,10 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
         return insectList.size
     }
 
-/*
-    fun loadInsects(newInsectList: MutableList<InsectDataModel>) {
- //       cleanInsectList()
-        this.insectList.addAll(newInsectList)
-        notifyDataSetChanged()
-    }
-
-    private fun cleanInsectList() {
-        this.insectList.clear()
-        notifyDataSetChanged()
-    }
-*/
-
     class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
         val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
         val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)
+        val container: ConstraintLayout = itemView.findViewById(R.id.layout_insect_row_item)
     }
 }
