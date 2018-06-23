@@ -1,19 +1,16 @@
 package com.google.developer.bugmaster.presentation
 
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
-import com.google.common.collect.ImmutableList
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 import com.google.developer.bugmaster.views.DangerLevelView
-import java.util.Collections.addAll
-import kotlin.properties.Delegates
 
 class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
                     private val insectItemSelectedListener: InsectItemSelectedListener)
@@ -23,7 +20,7 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.insect_row_item, parent, false)
-
+        Log.d(this::javaClass.name, "onCreateViewHolder")
         return CustomInsectHolder(view)
     }
 
@@ -37,6 +34,7 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
     }
 
     override fun getItemCount(): Int {
+        Log.d(this::javaClass.name, "getItemCount ${insectList.size}")
         return insectList.size
     }
 
