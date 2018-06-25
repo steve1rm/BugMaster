@@ -1,40 +1,29 @@
 package com.google.developer.bugmaster.presentation
 
 import android.support.v7.widget.RecyclerView
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
-import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 import com.google.developer.bugmaster.views.DangerLevelView
 
-class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
-                    private val insectItemSelectedListener: InsectItemSelectedListener)
-
+class InsectAdapter(private val insectList: MutableList<InsectDataModel>)
     : RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
         val view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.insect_row_item, parent, false)
-        Log.d(this::javaClass.name, "onCreateViewHolder")
         return CustomInsectHolder(view)
     }
 
     override fun onBindViewHolder(holder: CustomInsectHolder, position: Int) {
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
-
-        holder.container.setOnClickListener {
-            insectItemSelectedListener.insectedItemSelected(insectList[position])
-        }
     }
 
     override fun getItemCount(): Int {
-        Log.d(this::javaClass.name, "getItemCount ${insectList.size}")
         return insectList.size
     }
 
@@ -42,6 +31,5 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
         val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
         val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
         val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)
-        val container: ConstraintLayout = itemView.findViewById(R.id.layout_insect_row_item)
     }
 }

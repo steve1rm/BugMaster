@@ -9,6 +9,8 @@ import com.google.developer.bugmaster.MainActivity;
 import com.google.developer.bugmaster.data.db.InsectStorageImp;
 import com.google.developer.bugmaster.domain.InsectStorageInteractorImp;
 
+import java.lang.ref.WeakReference;
+
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -20,23 +22,13 @@ import io.reactivex.schedulers.Schedulers;
  * for this application.
  */
 public class DatabaseManager {
-    private static DatabaseManager sInstance;
-    private MainActivity mainActivity;
-
-    public static synchronized DatabaseManager getInstance(MainActivity context) {
-        if (sInstance == null) {
-            sInstance = new DatabaseManager(context);
-        }
-
-        return sInstance;
-    }
+    private WeakReference<MainActivity> mainActivity;
 
     private BugsDbHelper mBugsDbHelper;
 
-    private DatabaseManager(MainActivity context) {
+    public DatabaseManager(MainActivity context) {
         mBugsDbHelper = new BugsDbHelper(context);
-
-        mainActivity = context;
+        mainActivity = new WeakReference<>(context);
     }
 
     /**
@@ -64,7 +56,7 @@ public class DatabaseManager {
 
                     @Override
                     public void onSuccess(Cursor cursor) {
-                        mainActivity.loadAllInsects(cursor);
+                        mainActivity.get().loadAllInsects(cursor);
                         disposable.dispose();
                         Log.d(DatabaseManager.class.getName(), "disposed subscription");
                     }
@@ -92,7 +84,7 @@ public class DatabaseManager {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        cursor -> mainActivity.loadSingleInsect(cursor),
+                        stub -> Log.d("", ""),
                         throwable -> Log.e(DatabaseManager.class.getName(), throwable.getMessage()));
     }
 }
