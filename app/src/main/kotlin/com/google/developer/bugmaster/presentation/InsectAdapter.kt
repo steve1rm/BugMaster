@@ -21,6 +21,8 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>)
     override fun onBindViewHolder(holder: CustomInsectHolder, position: Int) {
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
+
+        holder.ivDangerLevel.setDangerLevel(insectList[position].dangerLevel)
     }
 
     override fun getItemCount(): Int {
