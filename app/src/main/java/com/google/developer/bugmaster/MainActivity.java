@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.f2prateek.dart.HensonNavigable;
 import com.google.developer.bugmaster.data.DatabaseManager;
 import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
@@ -29,10 +30,13 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
+import dart.henson.plugin.HensonManager;
+import dart.henson.plugin.HensonPlugin;
+import dart.henson.plugin.generator.HensonNavigatorGenerator;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener, InsectItemSelectedListener {
-    private static final String INSECT_LIST = "insect_data";
+    public static final String INSECT_LIST = "insect_data";
 
     private List<InsectDataModel> insectDataModelList;
 
@@ -77,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void loadDataIntoAdapter() {
-        final InsectAdapter insectAdapter = new InsectAdapter(insectDataModelList);
+        final InsectAdapter insectAdapter =
+                new InsectAdapter(insectDataModelList, MainActivity.this);
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.notifyDataSetChanged();
     }
@@ -128,8 +133,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     @Override
-    public void insectedItemSelected(@NotNull InsectDataModel insectDataModel) {
+    public void onInsectItemSelected(@NotNull InsectDataModel insectDataModel) {
         final Intent intent = new Intent(MainActivity.this, InsectDetailsActivity.class);
+        final Parcelable parcelable = Parcels.wrap(insectDataModel);
+        intent.putExtra(INSECT_LIST, parcelable);
+
+        intent = Henson.
+
         startActivity(intent);
     }
 

@@ -5,11 +5,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 import com.google.developer.bugmaster.views.DangerLevelView
 
-class InsectAdapter(private val insectList: MutableList<InsectDataModel>)
+class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
+                    private val insectItemSelectedListener: InsectItemSelectedListener)
     : RecyclerView.Adapter<InsectAdapter.CustomInsectHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CustomInsectHolder {
@@ -21,8 +24,11 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>)
     override fun onBindViewHolder(holder: CustomInsectHolder, position: Int) {
         holder.tvFriendlyName.text = insectList[position].friendlyName
         holder.tvScientificName.text = insectList[position].scientificName
-
         holder.ivDangerLevel.setDangerLevel(insectList[position].dangerLevel)
+
+        holder.container.setOnClickListener {
+            insectItemSelectedListener.onInsectItemSelected(insectList[position])
+        }
     }
 
     override fun getItemCount(): Int {
@@ -33,5 +39,6 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>)
         val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
         val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
         val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)
+        val container: ConstraintLayout = itemView.findViewById(R.id.layout_insect_row_item)
     }
 }
