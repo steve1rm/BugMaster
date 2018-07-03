@@ -58,12 +58,10 @@ public class DatabaseManager {
                     public void onSuccess(Cursor cursor) {
                         mainActivity.get().loadAllInsects(cursor);
                         disposable.dispose();
-                        Log.d(DatabaseManager.class.getName(), "disposed subscription");
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e(DatabaseManager.class.getName(), e.getMessage());
                         disposable.dispose();
                     }
                 });

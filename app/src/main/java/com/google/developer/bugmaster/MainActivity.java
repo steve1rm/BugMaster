@@ -3,12 +3,13 @@ package com.google.developer.bugmaster;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.RecyclerView.LayoutManager;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,16 +22,19 @@ import com.google.developer.bugmaster.presentation.InsectAdapter;
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
+import org.parceler.Parcels;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.Unbinder;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener, InsectItemSelectedListener {
     private static final String INSECT_LIST = "insect_data";
 
+    private List<InsectDataModel> insectDataModelList;
 
     @BindView(R.id.recycler_view)
     RecyclerView rvInsects;
@@ -41,23 +45,49 @@ public class MainActivity extends AppCompatActivity implements
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_main);
+        unbinder = ButterKnife.bind(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        rvInsects = (RecyclerView)findViewById(R.id.recycler_view);
-        DatabaseManager databaseManager = new DatabaseManager(this);
-        databaseManager.queryAllInsects("friendlyName");
+
+        setupRecyclerView();
+
+        if(savedInstanceState == null) {
+            DatabaseManager databaseManager = new DatabaseManager(this);
+            databaseManager.queryAllInsects("friendlyName");
+        }
     }
 
-    private void setupAdapter(List<InsectDataModel> insectDataModelList) {
-        Log.d(MainActivity.class.getName(), "setupAdapter");
-        final LayoutManager layoutManager = new LinearLayoutManager(
-                this, LinearLayoutManager.VERTICAL, false);
-        rvInsects.setLayoutManager(layoutManager);
-        rvInsects.setHasFixedSize(true);
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        final Parcelable insectList = Parcels.wrap(insectDataModelList);
+        outState.putParcelable(INSECT_LIST, insectList);
+
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        insectDataModelList = Parcels.unwrap(savedInstanceState.getParcelable(INSECT_LIST));
+        if(insectDataModelList != null) {
+            loadDataIntoAdapter();
+        }
+    }
+
+    private void loadDataIntoAdapter() {
         final InsectAdapter insectAdapter = new InsectAdapter(insectDataModelList);
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.notifyDataSetChanged();
     }
+
+    private void setupRecyclerView() {
+        final LayoutManager layoutManager = new LinearLayoutManager(
+                this, LinearLayoutManager.VERTICAL, false);
+        rvInsects.setLayoutManager(layoutManager);
+        rvInsects.setHasFixedSize(true);
+     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -88,9 +118,9 @@ public class MainActivity extends AppCompatActivity implements
 
     public void loadAllInsects(final Cursor cursor) {
         InsectInteractorMapper insectInteractorMapper = new InsectInteractorMapperImp();
-        final List<InsectDataModel> insectDataModelList = insectInteractorMapper.map(cursor);
+        insectDataModelList = insectInteractorMapper.map(cursor);
         /* data loaded with 24 items */
-        setupAdapter(insectDataModelList);
+        loadDataIntoAdapter();
     }
 
     public void loadSingleInsect(final Cursor cursor) {
@@ -101,5 +131,11 @@ public class MainActivity extends AppCompatActivity implements
     public void insectedItemSelected(@NotNull InsectDataModel insectDataModel) {
         final Intent intent = new Intent(MainActivity.this, InsectDetailsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        unbinder.unbind();
+        super.onDestroy();
     }
 }
