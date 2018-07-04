@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,7 +13,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.f2prateek.dart.HensonNavigable;
 import com.google.developer.bugmaster.data.DatabaseManager;
 import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
@@ -30,9 +28,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dart.henson.plugin.HensonManager;
-import dart.henson.plugin.HensonPlugin;
-import dart.henson.plugin.generator.HensonNavigatorGenerator;
 
 public class MainActivity extends AppCompatActivity implements
         View.OnClickListener, InsectItemSelectedListener {
@@ -43,6 +38,8 @@ public class MainActivity extends AppCompatActivity implements
     @BindView(R.id.recycler_view)
     RecyclerView rvInsects;
     private Unbinder unbinder;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,9 +134,6 @@ public class MainActivity extends AppCompatActivity implements
         final Intent intent = new Intent(MainActivity.this, InsectDetailsActivity.class);
         final Parcelable parcelable = Parcels.wrap(insectDataModel);
         intent.putExtra(INSECT_LIST, parcelable);
-
-        intent = Henson.
-
         startActivity(intent);
     }
 

@@ -48,11 +48,6 @@ dependencies {
     implementation 'com.google.guava:guava-collections:r03'
     kapt 'org.parceler:parceler:1.1.10'
     implementation 'org.parceler:parceler-api:1.1.10'
-
-    implementation 'com.f2prateek.dart:dart:2.0.2'
-    annotationProcessor'com.f2prateek.dart:dart-processor:2.0.2'
-    implementation 'com.f2prateek.dart:henson:2.0.2'
-    annotationProcessor 'com.f2prateek.dart:henson-processor:2.0.2'
 }
 repositories {
     mavenCentral()

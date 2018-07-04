@@ -4,18 +4,11 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 
-import com.f2prateek.dart.Dart;
-import com.f2prateek.dart.InjectExtra;
-import com.google.developer.bugmaster.data.models.InsectDataModel;
-
-import dart.Dart;
+import com.google.developer.bugmaster.presentation.screens.InsectDetails;
 
 import static com.google.developer.bugmaster.presentation.screens.InsectDetails.InsectDetailFragment;
 
-
 public class InsectDetailsActivity extends AppCompatActivity {
-    @InjectExtra(MainActivity.INSECT_LIST)
-    InsectDataModel insectDataModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,13 +16,16 @@ public class InsectDetailsActivity extends AppCompatActivity {
         //TODO: Implement layout and display insect details
         setContentView(R.layout.activity_insect_detail);
 
-        Dart.inject(this);
+        final InsectDetails insectDetails = InsectDetailFragment.getNewInstance();
+        final Bundle bundle = new Bundle();
+        bundle.putParcelable(MainActivity.INSECT_LIST, getIntent().getParcelableExtra(MainActivity.INSECT_LIST));
+        insectDetails.setArguments(bundle);
 
         if(savedInstanceState == null) {
             final FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.add(
                     R.id.layout_activity_insect_detail,
-                    InsectDetailFragment.getNewInstance(),
+                    insectDetails,
                     InsectDetailFragment.getTag())
             .commit();
         }
