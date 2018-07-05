@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.developer.bugmaster.MainActivity
 import com.google.developer.bugmaster.R
+import com.google.developer.bugmaster.data.models.InsectDataModel
+import kotlinx.android.synthetic.main.insect_detail.*
+import org.parceler.Parcels
 
 
 /**
@@ -15,6 +18,8 @@ import com.google.developer.bugmaster.R
  *
  */
 class InsectDetails : Fragment() {
+    private lateinit var insectDataModel: InsectDataModel
+
     companion object InsectDetailFragment {
         val tag: String by lazy {
             InsectDetails::class.java.simpleName
@@ -27,10 +32,19 @@ class InsectDetails : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
+        val view = inflater.inflate(R.layout.insect_detail, container, false)
+        val bundle = arguments
+        insectDataModel = Parcels.unwrap<InsectDataModel>(bundle?.getParcelable(MainActivity.INSECT_LIST))
 
-        val insectDataModel = arguments?.get(MainActivity.INSECT_LIST)
 
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.insect_detail, container, false)
+        return view
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+        tvFriendlyName.text = insectDataModel.friendlyName
+        tvScientificName.text = insectDataModel.scientificName
+        tvClassification.text = insectDataModel.scientificName
     }
 }
