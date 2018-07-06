@@ -12,9 +12,10 @@
     <ImageView
         android:id="@+id/ivInsect"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
         android:background="@color/colorPrimaryLight"
         android:contentDescription="@null"
+        app:layout_constraintHeight_percent="0.40"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/avatars" />
@@ -65,7 +66,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvClassification"
-        tools:text="Danger Level" />
+        android:text="Danger Level"/>
 
     <TextView
         android:id="@+id/tvScale"

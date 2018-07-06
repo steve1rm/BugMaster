@@ -1,6 +1,7 @@
 package com.google.developer.bugmaster.presentation.screens
 
 
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +12,6 @@ import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
 import kotlinx.android.synthetic.main.insect_detail.*
 import org.parceler.Parcels
-
 
 /**
  * A simple [Fragment] subclass.
@@ -36,7 +36,6 @@ class InsectDetails : Fragment() {
         val bundle = arguments
         insectDataModel = Parcels.unwrap<InsectDataModel>(bundle?.getParcelable(MainActivity.INSECT_LIST))
 
-
         // Inflate the layout for this fragment
         return view
     }
@@ -45,6 +44,14 @@ class InsectDetails : Fragment() {
         super.onActivityCreated(savedInstanceState)
         tvFriendlyName.text = insectDataModel.friendlyName
         tvScientificName.text = insectDataModel.scientificName
-        tvClassification.text = insectDataModel.scientificName
+        tvClassification.text = insectDataModel.classification
+        ivInsect.setImageDrawable(getImageAsset())
+    }
+
+    private fun getImageAsset(): Drawable {
+        val assetManager = activity?.assets
+        val inputStream = assetManager?.open(insectDataModel.imageAsset)
+
+        return Drawable.createFromStream(inputStream, null)
     }
 }

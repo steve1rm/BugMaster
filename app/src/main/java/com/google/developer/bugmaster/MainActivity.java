@@ -39,8 +39,6 @@ public class MainActivity extends AppCompatActivity implements
     RecyclerView rvInsects;
     private Unbinder unbinder;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

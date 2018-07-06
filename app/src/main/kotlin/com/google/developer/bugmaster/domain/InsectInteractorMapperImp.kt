@@ -25,6 +25,8 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, Insec
                 it.friendlyName = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_FRIENDLY_NAME))
                 it.scientificName = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_SCIENTIFIC_NAME))
                 it.dangerLevel = cursor.getInt(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_DANGER_LEVEL))
+                it.classification = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_CLASSIFICATION))
+                it.imageAsset = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_IMAGE_ASSERT))
 
                 insectDataModelList.add(it)
             }
