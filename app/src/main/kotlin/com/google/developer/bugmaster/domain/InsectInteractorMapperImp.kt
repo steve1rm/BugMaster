@@ -13,7 +13,8 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, Insec
                 insectTypesEntity.scientificName,
                 insectTypesEntity.classification,
                 insectTypesEntity.imageAsset,
-                insectTypesEntity.dangerLevel)
+                insectTypesEntity.dangerLevel,
+                insectTypesEntity.itemType)
     }
 
     override fun map(cursor: Cursor): List<InsectDataModel> {
@@ -27,7 +28,7 @@ class InsectInteractorMapperImp: InsectInteractorMapper<InsectTypesEntity, Insec
                 it.dangerLevel = cursor.getInt(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_DANGER_LEVEL))
                 it.classification = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_CLASSIFICATION))
                 it.imageAsset = cursor.getString(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_IMAGE_ASSERT))
-
+                it.itemType = cursor.getInt(cursor.getColumnIndexOrThrow(InsectContract.COLUMN_ITEM_TYPE))
                 insectDataModelList.add(it)
             }
         }

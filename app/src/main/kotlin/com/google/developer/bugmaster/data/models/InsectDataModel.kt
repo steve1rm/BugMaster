@@ -9,7 +9,8 @@ data class InsectDataModel(var friendlyName: String = "",
                            var scientificName: String = "",
                            var classification: String = "",
                            var imageAsset: String = "",
-                           var dangerLevel: Int = 0) {
+                           var dangerLevel: Int = 0,
+                           var itemType: Int = -1) {
 
     fun toContentValues(): ContentValues {
         return ContentValues().apply {
@@ -18,6 +19,7 @@ data class InsectDataModel(var friendlyName: String = "",
             put(InsectContract.COLUMN_CLASSIFICATION, classification)
             put(InsectContract.COLUMN_IMAGE_ASSERT, imageAsset)
             put(InsectContract.COLUMN_DANGER_LEVEL, dangerLevel)
+            put(InsectContract.COLUMN_ITEM_TYPE, itemType)
         }
     }
 }

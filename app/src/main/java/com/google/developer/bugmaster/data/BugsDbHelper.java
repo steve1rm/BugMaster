@@ -36,7 +36,7 @@ public class BugsDbHelper extends SQLiteOpenHelper {
     private static final String TAG = BugsDbHelper.class.getSimpleName();
 
     private static final String DATABASE_NAME = "bug_master.db";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 7;
     private final CompositeDisposable compositeDisposable = new CompositeDisposable();
 
     //Used to read data from res/ and assets/

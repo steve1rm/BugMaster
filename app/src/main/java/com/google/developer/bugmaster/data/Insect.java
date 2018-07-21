@@ -17,16 +17,18 @@ public final class Insect implements Parcelable {
     public final String imageAsset;
     //1-10 scale danger to humans
     public final int dangerLevel;
+    public final int itemType;
 
     /**
      * Create a new Insect from discrete values
      */
-    public Insect(String name, String scientificName, String classification, String imageAsset, int dangerLevel) {
+    public Insect(String name, String scientificName, String classification, String imageAsset, int dangerLevel, int itemType) {
         this.name = name;
         this.scientificName = scientificName;
         this.classification = classification;
         this.imageAsset = imageAsset;
         this.dangerLevel = dangerLevel;
+        this.itemType = itemType;
     }
 
     /**
@@ -39,6 +41,7 @@ public final class Insect implements Parcelable {
         this.classification = null;
         this.imageAsset = null;
         this.dangerLevel = -1;
+        this.itemType = -1;
     }
 
     /**
@@ -50,6 +53,7 @@ public final class Insect implements Parcelable {
         this.classification = in.readString();
         this.imageAsset = in.readString();
         this.dangerLevel = in.readInt();
+        this.itemType = in.readInt();
     }
 
     @Override
@@ -59,6 +63,7 @@ public final class Insect implements Parcelable {
         dest.writeString(classification);
         dest.writeString(imageAsset);
         dest.writeInt(dangerLevel);
+        dest.writeInt(itemType);
     }
 
     @Override

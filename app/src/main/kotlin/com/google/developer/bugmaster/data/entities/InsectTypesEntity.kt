@@ -7,4 +7,5 @@ data class InsectTypesEntity(
         @SerializedName("scientificName") val scientificName: String,
         @SerializedName("classification") val classification: String,
         @SerializedName("imageAsset") val imageAsset: String,
-        @SerializedName("dangerLevel") val dangerLevel: Int)
+        @SerializedName("dangerLevel") val dangerLevel: Int,
+        @SerializedName("itemType") val itemType: Int)

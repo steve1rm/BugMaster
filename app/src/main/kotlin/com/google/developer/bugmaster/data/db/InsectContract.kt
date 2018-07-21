@@ -9,6 +9,7 @@ class InsectContract {
         const val COLUMN_CLASSIFICATION = "classification"
         const val COLUMN_IMAGE_ASSERT = "imageAssert"
         const val COLUMN_DANGER_LEVEL = "dangerLevel"
+        const val COLUMN_ITEM_TYPE = "itemType"
 
         const val CREATE_STATEMENT = "CREATE TABLE $TABLE_NAME" +
                 " (" +
@@ -17,7 +18,8 @@ class InsectContract {
                 "$COLUMN_SCIENTIFIC_NAME TEXT, " +
                 "$COLUMN_CLASSIFICATION TEXT, " +
                 "$COLUMN_IMAGE_ASSERT TEXT, " +
-                "$COLUMN_DANGER_LEVEL INTEGER" +
+                "$COLUMN_DANGER_LEVEL INTEGER, " +
+                "$COLUMN_ITEM_TYPE INTEGER" +
                  ");"
 
         const val DELETE_STATEMENT = "DELETE FROM $TABLE_NAME"
