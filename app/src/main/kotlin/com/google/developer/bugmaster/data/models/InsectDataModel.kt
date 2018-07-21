@@ -2,6 +2,8 @@ package com.google.developer.bugmaster.data.models
 
 import android.content.ContentValues
 import com.google.developer.bugmaster.data.db.InsectContract
+import com.google.developer.bugmaster.presentation.AdapterConstants
+import com.google.developer.bugmaster.presentation.ViewType
 import org.parceler.Parcel
 
 @Parcel
@@ -22,4 +24,6 @@ data class InsectDataModel(var friendlyName: String = "",
             put(InsectContract.COLUMN_ITEM_TYPE, itemType)
         }
     }
+
+    override fun getViewType() = AdapterConstants.INSECTS.ordinal
 }
