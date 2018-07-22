@@ -17,7 +17,10 @@ import com.google.developer.bugmaster.data.DatabaseManager;
 import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
-import com.google.developer.bugmaster.presentation.InsectAdapter;
+import com.google.developer.bugmaster.presentation.adapters.InsectBugImageDelegate;
+import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionDelegate;
+import com.google.developer.bugmaster.presentation.adapters.InsectDetailsAdapter;
+import com.google.developer.bugmaster.presentation.adapters.InsectItemType;
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
@@ -76,8 +79,13 @@ public class MainActivity extends AppCompatActivity implements
     }
 
     private void loadDataIntoAdapter() {
-        final InsectAdapter insectAdapter =
-                new InsectAdapter(insectDataModelList, MainActivity.this);
+        final InsectDetailsAdapter insectAdapter =
+                new InsectDetailsAdapter(
+                        insectDataModelList,
+                        MainActivity.this,
+                        new InsectDescriptionDelegate(InsectItemType.DESCRIPTION.getType()),
+                        new InsectBugImageDelegate(InsectItemType.IMAGE.getType()));
+
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.notifyDataSetChanged();
     }
