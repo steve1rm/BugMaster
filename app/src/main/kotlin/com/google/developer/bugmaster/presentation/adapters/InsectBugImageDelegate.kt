@@ -7,25 +7,25 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.presentation.core.AdapterDelegate
 
-class InsectBugImageDelegate(private val viewType: Int) {
-
+class InsectBugImageDelegate(private val viewType: Int) : AdapterDelegate<MutableList<InsectDataModel>> {
     private lateinit var context: Context
 
     fun getViewType() = viewType
 
-    fun isForViewType(insectList: MutableList<InsectDataModel>, position: Int) =
-            insectList[position].itemType == InsectItemType.IMAGE.type
+    override fun isForViewType(items: MutableList<InsectDataModel>, position: Int) =
+            items[position].itemType == InsectItemType.IMAGE.type
 
-    fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder {
         this.context = parent.context
         val inflater = LayoutInflater.from(this.context)
         return CustomBugImageHolder(inflater.inflate(R.layout.bug_image_item, parent, false))
     }
 
-    fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int, insectList: MutableList<InsectDataModel>) {
-        if(holder is CustomBugImageHolder) {
-            holder.ivBugimage.setImageDrawable(getImageAsset(insectList[position]))
+    override fun onBindViewHolder(items: MutableList<InsectDataModel>, position: Int, viewHolder: RecyclerView.ViewHolder) {
+        if(viewHolder is CustomBugImageHolder) {
+            viewHolder.ivBugimage.setImageDrawable(getImageAsset(items[position]))
         }
     }
 

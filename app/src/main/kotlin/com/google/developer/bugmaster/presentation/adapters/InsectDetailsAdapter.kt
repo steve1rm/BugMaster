@@ -2,7 +2,6 @@ package com.google.developer.bugmaster.presentation.adapters
 
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
-import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.data.models.InsectDataModel
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 import java.lang.UnsupportedOperationException
@@ -35,11 +34,11 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder.itemViewType) {
             InsectItemType.DESCRIPTION.type -> {
-                insectDescriptionDelegate.onBindViewHolder(holder, position, insectList)
+                insectDescriptionDelegate.onBindViewHolder(insectList, position, holder)
             }
 
             InsectItemType.IMAGE.type -> {
-                insectBugImageDelegate.onBindViewHolder(holder, position, insectList)
+                insectBugImageDelegate.onBindViewHolder(insectList, position, holder)
             }
         }
     }
