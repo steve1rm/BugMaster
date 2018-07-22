@@ -3,8 +3,8 @@ package com.google.developer.bugmaster.presentation.adapters
 import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import com.google.developer.bugmaster.data.models.InsectDataModel
+import com.google.developer.bugmaster.presentation.core.AdapterDelegateManager
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
-import java.lang.UnsupportedOperationException
 
 class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
                            private val insectItemSelectedListener: InsectItemSelectedListener,
@@ -12,12 +12,19 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
                            private var insectBugImageDelegate: InsectBugImageDelegate)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
+    private val delegateManager: AdapterDelegateManager<MutableList<InsectDataModel>> = AdapterDelegateManager()
+
     init {
         insectDescriptionDelegate = InsectDescriptionDelegate(InsectItemType.DESCRIPTION.type)
         insectBugImageDelegate = InsectBugImageDelegate(InsectItemType.IMAGE.type)
+
+        delegateManager.addDelegate(insectDescriptionDelegate)
+        delegateManager.addDelegate(insectBugImageDelegate)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        return delegateManager.onCreateViewHolder(parent, viewType)
+/*
         return when(viewType) {
             InsectItemType.DESCRIPTION.type -> {
                 insectDescriptionDelegate.onCreateViewHolder(parent)
@@ -29,9 +36,13 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
                 throw UnsupportedOperationException("No delegate found")
                 }
             }
+*/
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        delegateManager.onBindViewHolder(insectList, position, holder)
+
+/*
         when(holder.itemViewType) {
             InsectItemType.DESCRIPTION.type -> {
                 insectDescriptionDelegate.onBindViewHolder(insectList, position, holder)
@@ -41,6 +52,7 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
                 insectBugImageDelegate.onBindViewHolder(insectList, position, holder)
             }
         }
+*/
     }
 
     override fun getItemCount(): Int {
@@ -48,6 +60,9 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
     }
 
     override fun getItemViewType(position: Int): Int {
+        return delegateManager.getItemViewType(insectList, position)
+
+/*
         return if(insectDescriptionDelegate.isForViewType(insectList, position)) {
             insectDescriptionDelegate.getViewType()
         }
@@ -57,5 +72,6 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
         else {
             throw UnsupportedOperationException("No Delegate found")
         }
+*/
     }
 }
