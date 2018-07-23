@@ -7,11 +7,11 @@ import com.google.developer.bugmaster.presentation.core.AdapterDelegateManager
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener
 
 class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
-                           private val insectItemSelectedListener: InsectItemSelectedListener)
+                           insectItemSelectedListener: InsectItemSelectedListener)
     : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private val delegateManager: AdapterDelegateManager<MutableList<InsectDataModel>> = AdapterDelegateManager()
-    private val insectDescriptionDelegate = InsectDescriptionDelegate(InsectItemType.DESCRIPTION.type)
+    private val insectDescriptionDelegate = InsectDescriptionDelegate(InsectItemType.DESCRIPTION.type, insectItemSelectedListener)
     private val insectBugImageDelegate = InsectBugImageDelegate(InsectItemType.IMAGE.type)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -34,11 +34,15 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
 
         when(holder.itemViewType) {
             InsectItemType.DESCRIPTION.type -> {
-                insectDescriptionDelegate.onBindViewHolder(insectList, position, holder)
+                if(holder is CustomInsectViewHolder) {
+                    insectDescriptionDelegate.onBindViewHolder(insectList, position, holder)
+                }
             }
 
             InsectItemType.IMAGE.type -> {
-                insectBugImageDelegate.onBindViewHolder(insectList, position, holder)
+                if(holder is CustomBugImageViewHolder) {
+                    insectBugImageDelegate.onBindViewHolder(insectList, position, holder)
+                }
             }
         }
     }

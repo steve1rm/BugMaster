@@ -7,7 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout
 import com.google.developer.bugmaster.R
 import com.google.developer.bugmaster.views.DangerLevelView
 
-class CustomInsectHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+class CustomInsectViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     val ivDangerLevel: DangerLevelView = itemView.findViewById(R.id.ivDangerLevel)
     val tvFriendlyName: TextView = itemView.findViewById(R.id.tvFriendlyName)
     val tvScientificName: TextView = itemView.findViewById(R.id.tvScientificName)

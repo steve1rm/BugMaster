@@ -19,17 +19,17 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
         return when(viewType) {
             InsectItemType.DESCRIPTION.type -> {
                 view = inflater.inflate(R.layout.insect_row_item, parent, false)
-                CustomInsectHolder(view)
+                CustomInsectViewHolder(view)
             }
 
             InsectItemType.IMAGE.type -> {
                 view = inflater.inflate(R.layout.bug_image_item, parent, false)
-                CustomBugImageHolder(view)
+                CustomBugImageViewHolder(view)
             }
 
             else -> {
                     view = inflater.inflate(android.R.layout.simple_list_item_1, parent, false);
-                CustomInsectHolder(view)
+                CustomInsectViewHolder(view)
                 }
             }
     }
@@ -37,7 +37,7 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder.itemViewType) {
             InsectItemType.DESCRIPTION.type -> {
-                if(holder is CustomInsectHolder) {
+                if(holder is CustomInsectViewHolder) {
                     holder.tvFriendlyName.text = insectList[position].friendlyName
                     holder.tvScientificName.text = insectList [position].scientificName
                     holder.ivDangerLevel.setDangerLevel (insectList[position].dangerLevel)
@@ -49,10 +49,10 @@ class InsectAdapter(private val insectList: MutableList<InsectDataModel>,
             }
 
             InsectItemType.IMAGE.type -> {
-                if(holder is CustomBugImageHolder) {
-                    holder.ivBugimage.setImageResource(R.drawable.ladybug)
+                if(holder is CustomBugImageViewHolder) {
+                    holder.ivBugImage.setImageResource(R.drawable.ladybug)
 
-                    holder.ivBugimage.setOnClickListener {
+                    holder.ivBugImage.setOnClickListener {
                         insectItemSelectedListener.onInsectItemSelected(insectList[position])
                     }
                 }

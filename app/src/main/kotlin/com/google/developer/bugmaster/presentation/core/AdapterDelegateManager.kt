@@ -7,10 +7,10 @@ import org.jetbrains.annotations.NotNull
 import org.jetbrains.annotations.Nullable
 
 class AdapterDelegateManager<T> {
-    private val delegates: SparseArrayCompat<AdapterDelegate<T>> = SparseArrayCompat()
-    private var fallbackDelegate: AdapterDelegate<T>? = null
+    private val delegates: SparseArrayCompat<AdapterDelegate<T, RecyclerView.ViewHolder>> = SparseArrayCompat()
+    private var fallbackDelegate: AdapterDelegate<T, RecyclerView.ViewHolder>? = null
 
-    fun addDelegate(@NotNull delegate: AdapterDelegate<T>): AdapterDelegateManager<T> {
+    fun addDelegate(@NotNull delegate: AdapterDelegate<T, RecyclerView.ViewHolder>): AdapterDelegateManager<T> {
         var viewType = delegates.size()
 
         while(delegates.get(viewType) != null) {
@@ -20,11 +20,11 @@ class AdapterDelegateManager<T> {
         return addDelegate(viewType, false, delegate)
     }
 
-    fun addDelegate(viewType: Int, @NotNull delegate: AdapterDelegate<T>): AdapterDelegateManager<T> {
+    fun addDelegate(viewType: Int, @NotNull delegate: AdapterDelegate<T, RecyclerView.ViewHolder>): AdapterDelegateManager<T> {
         return addDelegate(viewType, false, delegate)
     }
 
-    fun addDelegate(viewType: Int, allowReplacingDelegate: Boolean, @NotNull delegate: AdapterDelegate<T>): AdapterDelegateManager<T> {
+    fun addDelegate(viewType: Int, allowReplacingDelegate: Boolean, @NotNull delegate: AdapterDelegate<T, RecyclerView.ViewHolder>): AdapterDelegateManager<T> {
         if(!allowReplacingDelegate && delegates[viewType] != null) {
             throw IllegalArgumentException("Already registered")
         }
@@ -71,7 +71,7 @@ class AdapterDelegateManager<T> {
     }
 
     @Nullable
-    fun getDelegateForViewType(viewType: Int): AdapterDelegate<T> {
+    fun getDelegateForViewType(viewType: Int): AdapterDelegate<T, RecyclerView.ViewHolder> {
         return delegates.get(viewType, fallbackDelegate)
     }
 }
