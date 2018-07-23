@@ -82,9 +82,7 @@ public class MainActivity extends AppCompatActivity implements
         final InsectDetailsAdapter insectAdapter =
                 new InsectDetailsAdapter(
                         insectDataModelList,
-                        MainActivity.this,
-                        new InsectDescriptionDelegate(InsectItemType.DESCRIPTION.getType()),
-                        new InsectBugImageDelegate(InsectItemType.IMAGE.getType()));
+                        MainActivity.this);
 
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.notifyDataSetChanged();
