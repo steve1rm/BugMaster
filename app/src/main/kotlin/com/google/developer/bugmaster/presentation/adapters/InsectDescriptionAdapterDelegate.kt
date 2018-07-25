@@ -8,7 +8,7 @@ import com.google.developer.bugmaster.presentation.core.ItemDelegate
 class InsectDescriptionAdapterDelegate : ItemDelegate<CustomInsectViewHolder, InsectAdapterItemType.InsectDescription> {
 
     override fun itemType(): Class<out InsectAdapterItemType.InsectDescription> {
-        InsectAdapterItemType.InsectDescription::class.java
+        return InsectAdapterItemType.InsectDescription::class.java
     }
 
     override fun createViewHolder(parent: ViewGroup): CustomInsectViewHolder {

@@ -11,8 +11,6 @@ import com.google.developer.bugmaster.presentation.core.AdapterDelegate
 class InsectBugImageDelegate(private val viewType: Int) : AdapterDelegate<MutableList<InsectDataModel>, CustomBugImageViewHolder> {
     private lateinit var context: Context
 
-    fun getViewType() = viewType
-
     override fun isForViewType(items: MutableList<InsectDataModel>, position: Int)
             = items[position].itemType == InsectItemType.IMAGE.type
 

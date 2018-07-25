@@ -19,7 +19,9 @@ import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
 import com.google.developer.bugmaster.presentation.adapters.InsectAdapter;
 import com.google.developer.bugmaster.presentation.adapters.InsectAdapterItemType;
+import com.google.developer.bugmaster.presentation.adapters.InsectBugImageAdapterDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectBugImageDelegate;
+import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionAdapterDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDetailsAdapter;
 import com.google.developer.bugmaster.presentation.adapters.InsectItemType;
@@ -76,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements
 
         insectDataModelList = Parcels.unwrap(savedInstanceState.getParcelable(INSECT_LIST));
         if(insectDataModelList != null) {
-            loadDataIntoAdapter();
+            loadDataIntoInsectAdapter();
         }
     }
 
@@ -93,8 +95,15 @@ public class MainActivity extends AppCompatActivity implements
     private void loadDataIntoInsectAdapter() {
         final InsectAdapter insectAdapter =
                 new InsectAdapter(
-                        insectBugImageDelegate: ,
-                        new InsectDescriptionDelegate(InsectAdapterItemType.InsectDescription));
+                        new InsectBugImageAdapterDelegate(),
+                        new InsectDescriptionAdapterDelegate(),
+                        insectDataModelList);
+
+        rvInsects.setAdapter(insectAdapter);
+        insectAdapter.populateData();
+
+
+        insectAdapter.notifyDataSetChanged();
     }
 
     private void setupRecyclerView() {
@@ -135,7 +144,9 @@ public class MainActivity extends AppCompatActivity implements
         InsectInteractorMapper insectInteractorMapper = new InsectInteractorMapperImp();
         insectDataModelList = insectInteractorMapper.map(cursor);
         /* data loaded with 24 items */
-        loadDataIntoAdapter();
+        loadDataIntoInsectAdapter();
+
+        // loadDataIntoAdapter();
     }
 
     public void loadSingleInsect(final Cursor cursor) {
