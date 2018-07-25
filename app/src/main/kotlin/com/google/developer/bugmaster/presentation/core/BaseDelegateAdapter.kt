@@ -1,5 +1,6 @@
 package com.google.developer.bugmaster.presentation.core
 
+import android.support.v7.widget.RecyclerView
 import android.view.ViewGroup
 import android.view.ViewParent
 
@@ -26,7 +27,7 @@ abstract class BaseDelegateAdapter<I : Any>(vararg delegates: ItemDelegate<*, ou
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         return delegateList[viewType].createViewHolder(parent)
     }
 

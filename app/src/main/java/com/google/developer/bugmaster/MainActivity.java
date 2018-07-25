@@ -17,6 +17,8 @@ import com.google.developer.bugmaster.data.DatabaseManager;
 import com.google.developer.bugmaster.data.models.InsectDataModel;
 import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
+import com.google.developer.bugmaster.presentation.adapters.InsectAdapter;
+import com.google.developer.bugmaster.presentation.adapters.InsectAdapterItemType;
 import com.google.developer.bugmaster.presentation.adapters.InsectBugImageDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDetailsAdapter;
@@ -86,6 +88,13 @@ public class MainActivity extends AppCompatActivity implements
 
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.notifyDataSetChanged();
+    }
+
+    private void loadDataIntoInsectAdapter() {
+        final InsectAdapter insectAdapter =
+                new InsectAdapter(
+                        insectBugImageDelegate: ,
+                        new InsectDescriptionDelegate(InsectAdapterItemType.InsectDescription));
     }
 
     private void setupRecyclerView() {

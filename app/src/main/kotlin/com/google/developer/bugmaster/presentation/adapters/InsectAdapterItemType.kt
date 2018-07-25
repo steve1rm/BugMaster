@@ -1,14 +1,16 @@
 package com.google.developer.bugmaster.presentation.adapters
 
+import com.google.developer.bugmaster.data.models.InsectDataModel
 import org.parceler.Parcel
 import org.parceler.ParcelConstructor
 
 sealed class InsectAdapterItemType {
 
     @Parcel(Parcel.Serialization.BEAN)
-data class InsectImage @ParcelConstructor constructor(
+    data class InsectImage @ParcelConstructor constructor(
+            val insectTypeImage: InsectDataModel): InsectAdapterItemType()
 
-    )
-
-
+    @Parcel(Parcel.Serialization.BEAN)
+    data class InsectDescription @ParcelConstructor constructor(
+            val insectTypeDescription: InsectDataModel): InsectAdapterItemType()
 }
