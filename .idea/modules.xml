@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/BugMaster.iml" filepath="$PROJECT_DIR$/BugMaster.iml" />
-      <module fileurl="file://$PROJECT_DIR$/aad-BugMasterExam.iml" filepath="$PROJECT_DIR$/aad-BugMasterExam.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

@@ -102,6 +102,19 @@ public class MainActivity extends AppCompatActivity implements
         rvInsects.setAdapter(insectAdapter);
         insectAdapter.populateData();
 
+/*        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        rvApartmentAccessoryItem.layoutManager = linearLayoutManager
+        rvApartmentAccessoryItem.adapter = apartmentItemsAdapter
+
+        *//* Dummy test data - to be removed *//*
+        val items: MutableList<ApartmentOverviewItems> = mutableListOf()
+        items.add(0, ApartmentOverviewItems.ApartmentDescription("This is the description"))
+        items.add(1, ApartmentOverviewItems.ApartmentHouseRules(HouseRuleDataModel("This is the title", "Obey all the rules")))
+        val data = ApartmentOverviewViewModel(items)
+
+        apartmentItemsAdapter.items = data.items
+        apartmentItemsAdapter.notifyDataSetChanged()
+                */
 
         insectAdapter.notifyDataSetChanged();
     }
