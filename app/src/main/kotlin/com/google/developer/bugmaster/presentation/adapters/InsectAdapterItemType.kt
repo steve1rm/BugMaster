@@ -9,9 +9,10 @@ sealed class InsectAdapterItemType {
 
     @Parcel(Parcel.Serialization.BEAN)
     data class InsectImage @ParcelConstructor constructor(
-            val insectTypeImage: InsectDataModel): InsectAdapterItemType()
+            val insectTypeImage: String): InsectAdapterItemType()
 
     @Parcel(Parcel.Serialization.BEAN)
     data class InsectDescription @ParcelConstructor constructor(
             val insectTypeDescription: InsectDataModel): InsectAdapterItemType()
 }
+

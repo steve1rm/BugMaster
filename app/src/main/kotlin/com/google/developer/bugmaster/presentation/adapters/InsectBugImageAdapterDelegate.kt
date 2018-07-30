@@ -25,9 +25,9 @@ class InsectBugImageAdapterDelegate : ItemDelegate<CustomBugImageViewHolder, Ins
         viewHolder.ivBugImage.setImageDrawable(getImageAsset(item.insectTypeImage))
     }
 
-    private fun getImageAsset(insectDataModel: InsectDataModel): Drawable {
+    private fun getImageAsset(assetImage: String): Drawable {
         val assetManager = this.context.assets
-        val inputStream = assetManager?.open(insectDataModel.imageAsset)
+        val inputStream = assetManager?.open(assetImage)
 
         return Drawable.createFromStream(inputStream, null)
     }

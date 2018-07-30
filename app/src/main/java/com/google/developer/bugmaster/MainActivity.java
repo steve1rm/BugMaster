@@ -19,17 +19,17 @@ import com.google.developer.bugmaster.domain.InsectInteractorMapper;
 import com.google.developer.bugmaster.domain.InsectInteractorMapperImp;
 import com.google.developer.bugmaster.presentation.adapters.InsectAdapter;
 import com.google.developer.bugmaster.presentation.adapters.InsectAdapterItemType;
+import com.google.developer.bugmaster.presentation.adapters.InsectAdapterItemTypeViewModel;
 import com.google.developer.bugmaster.presentation.adapters.InsectBugImageAdapterDelegate;
-import com.google.developer.bugmaster.presentation.adapters.InsectBugImageDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionAdapterDelegate;
-import com.google.developer.bugmaster.presentation.adapters.InsectDescriptionDelegate;
 import com.google.developer.bugmaster.presentation.adapters.InsectDetailsAdapter;
-import com.google.developer.bugmaster.presentation.adapters.InsectItemType;
+import com.google.developer.bugmaster.presentation.core.InsectViewModelMapper;
 import com.google.developer.bugmaster.presentation.screens.InsectItemSelectedListener;
 
 import org.jetbrains.annotations.NotNull;
 import org.parceler.Parcels;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -96,26 +96,13 @@ public class MainActivity extends AppCompatActivity implements
         final InsectAdapter insectAdapter =
                 new InsectAdapter(
                         new InsectBugImageAdapterDelegate(),
-                        new InsectDescriptionAdapterDelegate(),
-                        insectDataModelList);
+                        new InsectDescriptionAdapterDelegate());
 
         rvInsects.setAdapter(insectAdapter);
-        insectAdapter.populateData();
 
-/*        val linearLayoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        rvApartmentAccessoryItem.layoutManager = linearLayoutManager
-        rvApartmentAccessoryItem.adapter = apartmentItemsAdapter
-
-        *//* Dummy test data - to be removed *//*
-        val items: MutableList<ApartmentOverviewItems> = mutableListOf()
-        items.add(0, ApartmentOverviewItems.ApartmentDescription("This is the description"))
-        items.add(1, ApartmentOverviewItems.ApartmentHouseRules(HouseRuleDataModel("This is the title", "Obey all the rules")))
-        val data = ApartmentOverviewViewModel(items)
-
-        apartmentItemsAdapter.items = data.items
-        apartmentItemsAdapter.notifyDataSetChanged()
-                */
-
+        final InsectViewModelMapper insectViewModelMapper = new InsectViewModelMapper();
+        final InsectAdapterItemTypeViewModel insectAdapterItemTypeViewModel = insectViewModelMapper.map(insectDataModelList);
+        insectAdapter.populateData(insectAdapterItemTypeViewModel.getItems());
         insectAdapter.notifyDataSetChanged();
     }
 
@@ -158,8 +145,6 @@ public class MainActivity extends AppCompatActivity implements
         insectDataModelList = insectInteractorMapper.map(cursor);
         /* data loaded with 24 items */
         loadDataIntoInsectAdapter();
-
-        // loadDataIntoAdapter();
     }
 
     public void loadSingleInsect(final Cursor cursor) {

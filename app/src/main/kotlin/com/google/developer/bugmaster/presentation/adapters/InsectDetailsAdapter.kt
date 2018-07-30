@@ -80,6 +80,5 @@ class InsectDetailsAdapter(private val insectList: MutableList<InsectDataModel>,
         else {
             throw UnsupportedOperationException("No Delegate found")
         }
-
     }
 }
